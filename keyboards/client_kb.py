@@ -1,6 +1,6 @@
 from database import postgres_db
 import utils
-from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, ReplyKeyboardRemove, InlineKeyboardMarkup, InlineKeyboardButton
+from aiogram.types import ReplyKeyboardMarkup, KeyboardButton,  InlineKeyboardMarkup, InlineKeyboardButton
 def kb_client() -> ReplyKeyboardMarkup:
     start_button=KeyboardButton('/start')
     return kb_client
@@ -44,46 +44,7 @@ async def ikb_client_rols() -> InlineKeyboardMarkup:
     back=InlineKeyboardButton('Назад',callback_data='back_to_menu')
     ikb_client_rols.add(back)
     return ikb_client_rols
-# async def ikb_client_sushi_phila() -> InlineKeyboardMarkup:
-#     ikb_client_sushi_phila=InlineKeyboardMarkup(row_width=1)
-#     sushi=await postgres_db.get_sushi()
-#     for dish in sushi:
-#         if type=='Phila':
-#             phila=InlineKeyboardButton(text=dish,callback_data=sushi['íd'])
-#             ikb_client_sushi_phila.add(phila)
-#     back=InlineKeyboardButton('Назад',callback_data='back_to_rols_types')
-#     ikb_client_sushi_phila.add(back)
-#     return ikb_client_sushi_phila
-# async def ikb_client_sushi_californ() -> InlineKeyboardMarkup:
-#     ikb_client_sushi_californ=InlineKeyboardMarkup(row_width=1)
-#     sushi=await postgres_db.get_sushi()
-#     for dish in sushi:
-#         if type=='Californ':
-#             californ=InlineKeyboardButton(text=dish,callback_data=sushi['íd'])
-#             ikb_client_sushi_californ.add(californ)
-#     back=InlineKeyboardButton('Назад',callback_data='back_to_rols_types')
-#     ikb_client_sushi_californ.add(back)
-#     return ikb_client_sushi_californ
-# async def ikb_client_sushi_futumack() -> InlineKeyboardMarkup:
-#     ikb_client_sushi_futumack=InlineKeyboardMarkup(row_width=1)
-#     sushi=await postgres_db.get_sushi()
-#     for dish in sushi:
-#         if type=='Futumack':
-#             futumack=InlineKeyboardButton(text=dish,callback_data=dish['íd'])
-#             ikb_client_sushi_futumack.add(futumack)
-#     back=InlineKeyboardButton('Назад',callback_data='back_to_rols_types')
-#     ikb_client_sushi_futumack.add(back)
-#     return ikb_client_sushi_futumack
-# async def ikb_client_sushi_warm_rols() -> InlineKeyboardMarkup:
-#     ikb_client_sushi_warm_rols=InlineKeyboardMarkup(row_width=1)
-#     sushi=await postgres_db.get_sushi()
-#     for dish in sushi:
-#         if type=='warm_rols':
-#             warm_rols=InlineKeyboardButton(text=dish,callback_data=sushi['íd'])
-#             ikb_client_sushi_warm_rols.add(warm_rols)
-#     back=InlineKeyboardButton('Назад',callback_data='back_to_rols_types')
-#     ikb_client_sushi_warm_rols.add(back)
-#     return ikb_client_sushi_warm_rols
+
 async def ikb_client_sushi_type(type: str) -> InlineKeyboardMarkup:
     ikb_client_sushi_sets=InlineKeyboardMarkup(row_width=1)
     sushi=await postgres_db.get_sushi()
@@ -94,26 +55,7 @@ async def ikb_client_sushi_type(type: str) -> InlineKeyboardMarkup:
     back=InlineKeyboardButton('Назад',callback_data='back_to_rols_types')
     ikb_client_sushi_sets.add(back)
     return ikb_client_sushi_sets
-# async def ikb_client_sushi_dragon() -> InlineKeyboardMarkup:
-#     ikb_client_sushi_dragon=InlineKeyboardMarkup(row_width=1)
-#     sushi=await postgres_db.get_sushi()
-#     for dish in sushi:
-#         if dish['type']=='Dragon':
-#             dragon=InlineKeyboardButton(text=dish,callback_data=dish['íd'])
-#             ikb_client_sushi_dragon.add(dragon)
-#     back=InlineKeyboardButton('Назад',callback_data='back_to_rols_types')
-#     ikb_client_sushi_dragon.add(back)
-#     return ikb_client_sushi_dragon
-# async def ikb_client_sushi_maki() -> InlineKeyboardMarkup:
-#     ikb_client_sushi_maki=InlineKeyboardMarkup(row_width=1)
-#     sushi=await postgres_db.get_sushi()
-#     for dish in sushi:
-#         if type=='Maki':
-#             maki=InlineKeyboardButton(text=dish,callback_data=sushi['íd'])
-#             ikb_client_sushi_maki.add(maki)
-#     back=InlineKeyboardButton('Назад',callback_data='back_to_rols_types')
-#     ikb_client_sushi_maki.add(back)
-#     return ikb_client_sushi_maki
+
 
 async def ikb_client_pizza() -> InlineKeyboardMarkup:
     ikb_client_pizza=InlineKeyboardMarkup(row_width=1)
@@ -166,71 +108,7 @@ async def ikb_client_second_dish(type: str) -> InlineKeyboardMarkup:
     back=InlineKeyboardButton('Назад',callback_data='back_to_second_dish_types')
     ikb_client_second_dish.add(back)
     return ikb_client_second_dish
-# async def ikb_client_second_dish_pig() -> InlineKeyboardMarkup:
-#     ikb_client_second_dish_pig=InlineKeyboardMarkup(row_width=1)
-#     second_dish= await postgres_db.get_second_dish()
-#     for dish in second_dish:
-#         if type=='pig':
-#             second_dish_pig=InlineKeyboardButton(text=dish,callback_data=f'info_about_second_dish_pig_{second_dish["id"]}')
-#             ikb_client_second_dish_pig.add(second_dish_pig)
-#     back=InlineKeyboardButton('Назад',callback_data='back_to_second_dish_types')
-#     ikb_client_second_dish_pig.add(back)
-#     return ikb_client_second_dish_pig
-#
-# async def ikb_client_second_dish_chiken() -> InlineKeyboardMarkup:
-#     ikb_client_second_dish_chiken=InlineKeyboardMarkup(row_width=1)
-#     second_dish= await postgres_db.get_second_dish()
-#     for dish in second_dish:
-#         if type=='chiken':
-#             second_dish_chiken=InlineKeyboardButton(text=dish,callback_data=f'info_about_second_dish_chiken_{second_dish["id"]}')
-#             ikb_client_second_dish_chiken.add(second_dish_chiken)
-#     back=InlineKeyboardButton('Назад',callback_data='back_to_second_dish_types')
-#     ikb_client_second_dish_chiken.add(back)
-#     return ikb_client_second_dish_chiken
-#
-# async def ikb_client_second_dish_fish() -> InlineKeyboardMarkup:
-#     ikb_client_second_dish_fish=InlineKeyboardMarkup(row_width=1)
-#     second_dish= await postgres_db.get_second_dish()
-#     for dish, in second_dish:
-#         if type=='fish':
-#             second_dish_fish=InlineKeyboardButton(text=dish,callback_data=f'info_about_second_dish_fish_{second_dish["id"]}')
-#             ikb_client_second_dish_fish.add(second_dish_fish)
-#     back=InlineKeyboardButton('Назад',callback_data='back_to_second_dish_types')
-#     ikb_client_second_dish_fish.add(back)
-#     return ikb_client_second_dish_fish
-#
-# async def ikb_client_second_dish_side_dishes() -> InlineKeyboardMarkup:
-#     ikb_client_second_dish_side_dishes=InlineKeyboardMarkup(row_width=1)
-#     second_dish= await postgres_db.get_second_dish()
-#     for dish in second_dish:
-#         if type=='side_dishes':
-#             second_dish_side_dishes=InlineKeyboardButton(text=dish,callback_data=f'info_about_second_dish_side_dishes_{second_dish["id"]}')
-#             ikb_client_second_dish_side_dishes.add(second_dish_side_dishes)
-#     back=InlineKeyboardButton('Назад',callback_data='back_to_second_dish_types')
-#     ikb_client_second_dish_side_dishes.add(back)
-#     return ikb_client_second_dish_side_dishes
-#
-# async def ikb_client_second_dish_pasta() -> InlineKeyboardMarkup:
-#     ikb_client_second_dish_pasta=InlineKeyboardMarkup(row_width=1)
-#     second_dish= await postgres_db.get_second_dish()
-#     for dish in second_dish:
-#         if type=='pasta':
-#             second_dish_pasta=InlineKeyboardButton(text=dish,callback_data=f'info_about_second_dish_pasta_{second_dish["id"]}')
-#             ikb_client_second_dish_pasta.add(second_dish_pasta)
-#     back=InlineKeyboardButton('Назад',callback_data='back_to_second_dish_types')
-#     ikb_client_second_dish_pasta.add(back)
-#     return ikb_client_second_dish_pasta
-#
-# async def ikb_client_second_dish_mangal() -> InlineKeyboardMarkup:
-#     ikb_client_second_dish_mangal=InlineKeyboardMarkup(row_width=1)
-#     second_dish= await postgres_db.get_second_dish()
-#     for dish in second_dish:
-#         if type=='mangal':
-#             second_dish_mangal=InlineKeyboardButton(text=dish,callback_data=f'info_about_second_dish_mangal_{second_dish["id"]}')
-#             ikb_client_second_dish_mangal.add(second_dish_mangal)
-#     back=InlineKeyboardButton('Назад',callback_data='back_to_second_dish_types')
-#     ikb_client_second_dish_mangal.add(back)
-#     return ikb_client_second_dish_mangal
+
 
 
 async def ikb_client_deserts() -> InlineKeyboardMarkup:

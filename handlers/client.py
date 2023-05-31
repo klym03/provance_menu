@@ -1,14 +1,7 @@
 from aiogram import types, Dispatcher
 from aiogram.dispatcher.filters import Text
 
-from create_bot import dp,bot
-# from keyboards.client_kb import ikb_client_back_to_main_menu, ikb_client_menu, ikb_client_bar, ikb_client_rols, \
-#     ikb_client_pizza, ikb_client_first_dish, ikb_client_second_dish_type, ikb_client_salats, ikb_client_cold_snacks, \
-#     ikb_client_warm_snacks, ikb_client_main_menu, ikb_client_sushi_phila, ikb_client_sushi_californ, \
-#     ikb_client_sushi_futumack, ikb_client_sushi_warm_rols, ikb_client_sushi_dragon, ikb_client_sushi_maki, \
-#     ikb_client_sushi_sets, ikb_client_second_dish_pig, ikb_client_second_dish_chiken, ikb_client_second_dish_fish, \
-#     ikb_client_second_dish_side_dishes, ikb_client_second_dish_pasta, ikb_client_second_dish_mangal, ikb_client_desetrs, \
-#     ikb_client_drinks
+from create_bot import bot
 from keyboards.client_kb import kb_client
 import keyboards.client_kb as kb
 
@@ -95,36 +88,7 @@ async def open_sushi(call: types.CallbackQuery):
 
 
 
-# async def open_sushi_phila(call: types.CallbackQuery):
-#     await call.message.delete()
-#     await bot.send_message(call.message.chat.id,'Виберіть рол Філадельфія',
-#                            reply_markup= await kb.ikb_client_sushi_type('Phila'))
-# async def open_sushi_california(call: types.CallbackQuery):
-#     await call.message.delete()
-#     await bot.send_message(call.message.chat.id,'Виберіть рол Каліфорнія',
-#                            reply_markup= await kb.ikb_client_sushi_type('Californ'))
-#
-# async def open_sushi_dragon(call: types.CallbackQuery):
-#     await call.message.delete()
-#     await bot.send_message(call.message.chat.id,'Виберіть рол Дракон',
-#                            reply_markup= await kb.ikb_client_sushi_type('Dragon'))
-# async def open_sushi_futumack(call: types.CallbackQuery):
-#     await call.message.delete()
-#     await bot.send_message(call.message.chat.id,'Виберіть рол Футомак',
-#                            reply_markup= await kb.ikb_client_sushi_type('Futumack'))
-# async def open_sushi_warm_rols(call: types.CallbackQuery):
-#     await call.message.delete()
-#     await bot.send_message(call.message.chat.id,'Виберіть гарячий рол',
-#                            reply_markup= await kb.ikb_client_sushi_type('warm_rols'))
-# async def open_sushi_maki(call: types.CallbackQuery):
-#     await call.message.delete()
-#     await bot.send_message(call.message.chat.id,'Виберіть рол Макі',
-#                            reply_markup= await kb.ikb_client_sushi_type('Maki'))
-#
-# async def open_sushi_set(call: types.CallbackQuery):
-#     await call.message.delete()
-#     await bot.send_message(call.message.chat.id,'Виберіть сет',
-#                            reply_markup= await kb.ikb_client_sushi_type('Set'))
+
 async def back_to_menu(call: types.CallbackQuery):
     await call.message.delete()
     with open('images/menu.jpg', 'rb') as photo:
@@ -141,33 +105,6 @@ async def open_second_dish(call: types.CallbackQuery):
     await call.message.delete()
     await bot.send_message(call.message.chat.id,'Виберіть другу страву',reply_markup= await kb.ikb_client_second_dish(type))
 
-# async def open_second_dish_pig(call: types.CallbackQuery):
-#     await call.message.delete()
-#     await bot.send_message(call.message.chat.id,'Виберіть другу страву з свинини',reply_markup= await kb.ikb_client_second_dish('pig'))
-#
-# async def open_second_dish_bif(call: types.CallbackQuery):
-#     await call.message.delete()
-#     await bot.send_message(call.message.chat.id,'Виберіть другу страву з яловичини',reply_markup= await kb.ikb_client_second_dish('big'))
-#
-# async def open_second_dish_chiken(call: types.CallbackQuery):
-#     await call.message.delete()
-#     await bot.send_message(call.message.chat.id,'Виберіть другу страву з курки',reply_markup= await kb.ikb_client_second_dish('chiken'))
-#
-# async def open_second_dish_fish(call: types.CallbackQuery):
-#     await call.message.delete()
-#     await bot.send_message(call.message.chat.id,'Виберіть другу страву з риби',reply_markup= await kb.ikb_client_second_dish('fish'))
-#
-# async def open_second_dish_side_dishes(call: types.CallbackQuery):
-#     await call.message.delete()
-#     await bot.send_message(call.message.chat.id,'Виберіть гарнір',reply_markup= await kb.ikb_client_second_dish('side_dishes'))
-#
-# async def open_second_dish_pasta(call: types.CallbackQuery):
-#     await call.message.delete()
-#     await bot.send_message(call.message.chat.id,'Виберіть пасту',reply_markup= await kb.ikb_client_second_dish('pasta'))
-#
-# async def open_second_dish_mangal(call: types.CallbackQuery):
-#     await call.message.delete()
-#     await bot.send_message(call.message.chat.id,'Виберіть мангал',reply_markup= await kb.ikb_client_second_dish('mangal'))
 
 async def open_drinks(call: types.CallbackQuery):
     await call.message.delete()
@@ -187,24 +124,11 @@ def register_handlers_client(dp: Dispatcher):
     dp.register_callback_query_handler(open_menu, text='menu')
     dp.register_callback_query_handler(open_bar_menu, text='bar')
     dp.register_callback_query_handler(open_rols, text='rols')
-    # dp.register_callback_query_handler(open_sushi_phila, text='Phila')
-    # dp.register_callback_query_handler(open_sushi_california, text='Californ')
-    # dp.register_callback_query_handler(open_sushi_dragon, text='Dragon')
-    # dp.register_callback_query_handler(open_sushi_futumack, text='Futumack')
-    # dp.register_callback_query_handler(open_sushi_warm_rols, text='warm_rols')
-    # dp.register_callback_query_handler(open_sushi_set, text='Set')
-    # dp.register_callback_query_handler(open_sushi_maki, text='Maki')
     dp.register_callback_query_handler(open_sushi, Text(startswith='open_sushi_'))
     dp.register_callback_query_handler(open_pizza, text='pizza')
     dp.register_callback_query_handler(open_salats, text='salats')
     dp.register_callback_query_handler(open_first_dish, text='first_dish')
     dp.register_callback_query_handler(open_second_dish_type, text='second_dish')
-    # dp.register_callback_query_handler(open_second_dish_pig, text='pig')
-    # dp.register_callback_query_handler(open_second_dish_chiken, text='chiken')
-    # dp.register_callback_query_handler(open_second_dish_fish, text='fish')
-    # dp.register_callback_query_handler(open_second_dish_side_dishes, text='side_dishes')
-    # dp.register_callback_query_handler(open_second_dish_pasta, text='pasta')
-    # dp.register_callback_query_handler(open_second_dish_mangal, text='mangal')
     dp.register_callback_query_handler(open_second_dish,Text(startswith='open_second_dish_'))
     dp.register_callback_query_handler(open_cold_snacks, text='cold_snacks')
     dp.register_callback_query_handler(open_warm_snacks, text='warm_snacks')
