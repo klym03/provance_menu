@@ -7,7 +7,8 @@ from handlers import client
 async def on_startup(_):
     print('bot is online')
     await postgres_db.connect_db()
-
+    # await postgres_db.create_table()
+    # await postgres_db.add_column()
 client.register_handlers_client(dp)
 
 

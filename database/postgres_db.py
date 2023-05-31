@@ -79,3 +79,40 @@ async def get_deserts():
         async with connection.transaction():
             return await connection.fetch("SELECT * FROM menu_deserts ")
 
+async def get_cocktails():
+    async with pool.acquire() as connection:
+        async with connection.transaction():
+            return await connection.fetch("SELECT * FROM menu_coctails ")
+
+async def get_cocktails_types()->list:
+    type_list=[]
+    async with pool.acquire() as connection:
+        async with connection.transaction():
+            cocktails=await connection.fetch("SELECT * FROM menu_coctails ")
+            for type in cocktails:
+                if type['type'] not in type_list:
+                    type_list.append(type['type'])
+    return type_list
+
+# async def create_table():
+#     async with pool.acquire() as connection:
+#         async with connection.transaction():
+#             await connection.execute('''
+#                 CREATE TABLE IF NOT EXISTS menu_coctails (
+#                     dish VARCHAR(255),
+#                     storage VARCHAR(255),
+#                     price INT NOT NULL
+#                 )
+#             ''')
+#             print("Таблиця успішно створена!")
+
+
+# async def add_column():
+#     async with pool.acquire() as connection:
+#         async with connection.transaction():
+#             await connection.execute('''
+#                 ALTER TABLE menu_coctails
+#                 ADD COLUMN id SERIAL PRIMARY KEY
+#             ''')
+#             print("Стовбець успішно доданий!")
+

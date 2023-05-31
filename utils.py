@@ -16,3 +16,8 @@ second_dish_types={
     'pasta':'Паста',
     'mangal':'Страви на мангалі'
 }
+cocktails_types={
+    'alcoholic':'Алкогольні',
+    'nonAlcoholic':'Безалкогольні',
+    'shot':'Шоти'
+}

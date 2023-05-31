@@ -109,6 +109,21 @@ async def open_second_dish(call: types.CallbackQuery):
 async def open_drinks(call: types.CallbackQuery):
     await call.message.delete()
     await bot.send_message(call.message.chat.id,'Виберіть напій',reply_markup= await kb.ikb_client_drinks())
+
+async def open_drinks_bar(call: types.CallbackQuery):
+    await call.message.delete()
+    await bot.send_message(call.message.chat.id,'Виберіть напій',reply_markup= await kb.ikb_client_drinks_bar())
+
+async def open_cocktails_types(call: types.CallbackQuery):
+    await call.message.delete()
+    await bot.send_message(call.message.chat.id,'Виберіть коктейль',reply_markup= await kb.ikb_client_coctails())
+
+
+async def open_cocktails(call: types.CallbackQuery):
+    data=call.data.split('_')
+    type=data[2]
+    await call.message.delete()
+    await bot.send_message(call.message.chat.id,'Виберіть коктейль',reply_markup= await kb.ikb_client_coctails_type(type))
 async def back_to_second_dish_types(call: types.CallbackQuery):
     await call.message.delete()
     await bot.send_message(call.message.chat.id,'Виберіть другу страву',reply_markup= await kb.ikb_client_second_dish_type())
@@ -116,6 +131,17 @@ async def back_to_second_dish_types(call: types.CallbackQuery):
 async def back_to_main_menu(call: types.CallbackQuery):
     await call.message.delete()
     await start_command(call.message)
+
+async def back_to_bar_menu(call: types.CallbackQuery):
+    await call.message.delete()
+    with open('images/bar.jpeg', 'rb') as photo:
+        await bot.send_photo(call.message.chat.id, photo,
+                             caption='Меню нашого закладу',
+                             reply_markup=kb.ikb_client_bar())
+
+async def back_to_bar_menu_types(call: types.CallbackQuery):
+    await call.message.delete()
+    await bot.send_message(call.message.chat.id, 'Виберіть коктейль', reply_markup=await kb.ikb_client_coctails())
 def register_handlers_client(dp: Dispatcher):
     dp.register_message_handler(start_command, commands=['start'])
     dp.register_callback_query_handler(wifi_command, text='wifi')
@@ -138,3 +164,9 @@ def register_handlers_client(dp: Dispatcher):
     dp.register_callback_query_handler(back_to_main_menu, text='back_to_main_menu')
     dp.register_callback_query_handler(back_to_rols_types, text='back_to_rols_types')
     dp.register_callback_query_handler(back_to_second_dish_types, text='back_to_second_dish_types')
+    dp.register_callback_query_handler(back_to_bar_menu, text='back_to_bar_menu')
+    dp.register_callback_query_handler(back_to_bar_menu_types, text='back_to_bar_menu_types')
+    dp.register_callback_query_handler(open_cocktails_types, text='cocktails')
+    dp.register_callback_query_handler(open_cocktails, Text(startswith='open_cocktails_'))
+    dp.register_callback_query_handler(open_drinks_bar, text='drinks_bar')
+
