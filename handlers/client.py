@@ -1,6 +1,9 @@
 from aiogram import types, Dispatcher
 from aiogram.dispatcher.filters import Text
 
+import utils
+from database import postgres_db
+
 from create_bot import bot
 from keyboards.client_kb import kb_client
 import keyboards.client_kb as kb
@@ -147,7 +150,7 @@ async def back_to_rols_types(call: types.CallbackQuery):
 
 async def open_second_dish(call: types.CallbackQuery):
     data=call.data.split('_')
-    type=data[3]
+    type=data[2]
     await call.message.delete()
     with open('images/secondDish_baner.jpg','rb') as photo:
         await bot.send_photo(call.message.chat.id,photo,
@@ -243,6 +246,35 @@ async def back_to_alcohol_menu_types(call: types.CallbackQuery):
                                 caption='Виберіть тип алкогою',
                                 reply_markup= await kb.ikb_client_alcohol())
     #await bot.send_message(call.message.chat.id, 'Виберіть тип алкогою', reply_markup=await kb.ikb_client_alcohol())
+async def back_to_choice(call: types.CallbackQuery):
+    await call.message.delete()
+    data=call.data.split('_')
+    dish_type=data[3] #coldSnack
+    # await utils.types_back(call.message,dish_type)
+
+async def info_about_dish(call: types.CallbackQuery):
+    await call.message.delete()
+    data=call.data.split('_')
+    dish_type=data[2]
+    dish_id=data[3]
+    dishType=utils.menu_types[dish_type]
+    dish=await postgres_db.get_info_about_dish(dishType,dish_id)
+    dish_type_name=None
+    message=''
+    if 'type' in dish:
+        message+=f"{utils.dict_types[dish['type']]}"
+        dish_type_name=dish['type']
+    message+=f" {dish['dish']}\n"
+    if 'storage'in dish:
+        message+=f'Опис: {dish["storage"]}\n'
+    if 'weight' in dish:
+        message+=f'Вага: {dish["weight"]}г\n'
+    if 'price' in dish:
+        message+=f'Ціна: {dish["price"]}грн\n'
+    # with open(f"images/{dish['type']}_{dish['id']}",'rb') as photo:
+    #     await bot.send_photo(call.message.chat.id,photo,caption=message,
+    #                          reply_markup= await kb.ikb_client_back_to_choice(dish_type,dish_type_name))
+    await bot.send_message(call.message.chat.id,message,reply_markup= await kb.ikb_client_back_to_choice(dish_type,dish_type_name))
 def register_handlers_client(dp: Dispatcher):
     dp.register_message_handler(start_command, commands=['start'])
     dp.register_callback_query_handler(wifi_command, text='wifi')
@@ -250,15 +282,15 @@ def register_handlers_client(dp: Dispatcher):
     dp.register_callback_query_handler(contacts, text='contacts')
     dp.register_callback_query_handler(open_menu, text='menu')
     dp.register_callback_query_handler(open_bar_menu, text='bar')
-    dp.register_callback_query_handler(open_rols, text='rols')
+    dp.register_callback_query_handler(open_rols, text='sushi')
     dp.register_callback_query_handler(open_sushi, Text(startswith='open_sushi_'))
     dp.register_callback_query_handler(open_pizza, text='pizza')
     dp.register_callback_query_handler(open_salats, text='salats')
-    dp.register_callback_query_handler(open_first_dish, text='first_dish')
-    dp.register_callback_query_handler(open_second_dish_type, text='second_dish')
-    dp.register_callback_query_handler(open_second_dish,Text(startswith='open_second_dish_'))
-    dp.register_callback_query_handler(open_cold_snacks, text='cold_snacks')
-    dp.register_callback_query_handler(open_warm_snacks, text='warm_snacks')
+    dp.register_callback_query_handler(open_first_dish, text='firstDish')
+    dp.register_callback_query_handler(open_second_dish_type, text='secondDish')
+    dp.register_callback_query_handler(open_second_dish,Text(startswith='open_secondDish_'))
+    dp.register_callback_query_handler(open_cold_snacks, text='coldSnacks')
+    dp.register_callback_query_handler(open_warm_snacks, text='warmSnacks')
     dp.register_callback_query_handler(open_deserts, text='deserts')
     dp.register_callback_query_handler(open_drinks, text='drinks')
     dp.register_callback_query_handler(back_to_menu, text='back_to_menu')
@@ -268,9 +300,12 @@ def register_handlers_client(dp: Dispatcher):
     dp.register_callback_query_handler(back_to_bar_menu, text='back_to_bar_menu')
     dp.register_callback_query_handler(back_to_coctails_menu_types, text='back_to_bar_menu_types')
     dp.register_callback_query_handler(back_to_alcohol_menu_types, text='back_to_alcohol_menu_types')
-    dp.register_callback_query_handler(open_cocktails_types, text='cocktails')
-    dp.register_callback_query_handler(open_cocktails, Text(startswith='open_cocktails_'))
+    dp.register_callback_query_handler(open_cocktails_types, text='coctails')
+    dp.register_callback_query_handler(open_cocktails, Text(startswith='open_coctails_'))
     dp.register_callback_query_handler(open_drinks_bar, text='drinks_bar')
     dp.register_callback_query_handler(open_alcohol_type, text='alcohol')
     dp.register_callback_query_handler(open_alcohol, Text(startswith='open_alcohol_'))
+    dp.register_callback_query_handler(info_about_dish, Text(startswith='info_about_'))
+    # dp.register_callback_query_handler(back_to_choice, Text(startswith='back_to_choice_'))
+
 

@@ -1,28 +1,23 @@
-rolls_types={
+from handlers import client
+
+dict_types={
     'Phila':'Філадельфія',
     'Californ':'Каліфорнія',
     'Futumack': 'Футомакі',
     'WarmRols':'Гарячі роли',
     'Dragon':'Дракон',
     'Maki': 'Макі',
-    'Set':'Сети'
-}
-second_dish_types={
+    'Set':'Сети',
     'pig':'Страви з свинини',
     'bif':'Страви з яловичини',
     'chiken':'Страви з курки',
     'fish':'Страви з риби',
     'sideDishes':'Гарніри',
     'pasta':'Паста',
-    'mangal':'Страви на мангалі'
-}
-cocktails_types={
+    'mangal':'Страви на мангалі',
     'alcoholic':'Алкогольні',
     'nonAlcoholic':'Безалкогольні',
-    'shot':'Шоти'
-}
-
-alcohol_types={
+    'shot':'Шоти',
     'horilka':'Горілка',
     'wine':'Вино',
     'beer':'Пиво',
@@ -30,4 +25,17 @@ alcohol_types={
     'whiskey':'Віскі',
     'likers':'Лікери',
     'shamp':'Шампанське'
+}
+menu_types={
+    'pizza':'menu_pizza',
+    'salats':'menu_salats',
+    'firstDish':'menu_first_dish',
+    'secondDish':'menu_second_dish',
+    'coldSnacks':'cold_snacks',
+    'warmSnacks':'warm_snacks',
+    'drinks':'menu_drinks',
+    'deserts':'menu_deserts',
+    'coctails':'menu_coctails',
+    'alcohol':'menu_alcohol',
+    'sushi':'menu_sushi'
 }

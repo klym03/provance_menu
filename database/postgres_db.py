@@ -1,17 +1,26 @@
 import psycopg2
 import asyncpg
 
-from config import host,user,password,db_name
 
 
 pool=asyncpg.create_pool()
+from dotenv.main import load_dotenv
+import os
+load_dotenv()
+DB_NAME = os.environ['POSTGRES_DB']
+DB_USERNAME = os.environ['POSTGRES_USER']
+DB_PASSWORD = os.environ['POSTGRES_PASSWORD']
+DB_HOST = os.environ['POSTGRES_HOST']
+DB_PORT = os.environ['POSTGRES_PORT']
 async def connect_db()->None:
     global pool
     pool=await asyncpg.create_pool(
-        host=host,
-        user=user,
-        password=password,
-        database=db_name)
+        host=DB_HOST,
+        user=DB_USERNAME,
+        password=DB_PASSWORD,
+        database=DB_NAME,
+        port=DB_PORT
+    )
 
 
 
@@ -111,6 +120,15 @@ async def get_alcohol_types()->list:
     return type_list
 
 
+async def get_info_about_dish(dish_type,dish_id:int):
+    async with pool.acquire() as connection:
+        async with connection.transaction():
+            return await connection.fetchrow(f"SELECT * FROM {dish_type} WHERE id={dish_id}, ")
+
+async def get_info_about_dish(dish_type, dish_id: int):
+    async with pool.acquire() as connection:
+        async with connection.transaction():
+            return await connection.fetchrow(f"SELECT * FROM {dish_type} WHERE id={dish_id}")
 
 
 # async def create_table():
