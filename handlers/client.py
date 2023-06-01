@@ -70,7 +70,7 @@ async def open_pizza(call: types.CallbackQuery):
 
 async def open_salats(call: types.CallbackQuery):
     await call.message.delete()
-    with open('images/salat_baner.jpg','rb') as photo:
+    with open('images/salats_baner.jpg','rb') as photo:
         await bot.send_photo(call.message.chat.id,photo,
                                 caption='Виберіть салат',
                                 reply_markup= await kb.ikb_client_salats())
@@ -122,7 +122,7 @@ async def open_sushi(call: types.CallbackQuery):
     data=call.data.split('_')
     type=data[2]
     await call.message.delete()
-    with open('images/sushi_baner.png', 'rb') as photo:
+    with open('images/sushi_baner.jpg', 'rb') as photo:
         await bot.send_photo(call.message.chat.id, photo,
                              caption='Виберіть рол',
                              reply_markup= await kb.ikb_client_sushi_type(type))
@@ -140,7 +140,7 @@ async def back_to_menu(call: types.CallbackQuery):
                              reply_markup=kb.ikb_client_menu())
 async def back_to_rols_types(call: types.CallbackQuery):
     await call.message.delete()
-    with open('images/sushi_baner.png', 'rb') as photo:
+    with open('images/sushi_baner.jpg', 'rb') as photo:
         await bot.send_photo(call.message.chat.id, photo,
                              caption='Виберіть рол',
                              reply_markup=await kb.ikb_client_rols())
