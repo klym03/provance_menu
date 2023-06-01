@@ -15,8 +15,12 @@ async def start_command(message: types.Message):
 #@dp.message_handler(commands=['wifi'])
 async def wifi_command(call: types.CallbackQuery):
     await call.message.delete()
-    await bot.send_message(call.message.chat.id,'Назва мережі: WIFI \nПароль: 10651124',
-                           reply_markup=kb.ikb_client_back_to_main_menu())
+    with open('images/wifi_baner.jpg','rb') as photo:
+        await bot.send_photo(call.message.chat.id,photo,
+                                caption='Назва мережі: WIFI \nПароль: 10651124',
+                                reply_markup=kb.ikb_client_back_to_main_menu())
+    #await bot.send_message(call.message.chat.id,'Назва мережі: WIFI \nПароль: 10651124',
+                           # reply_markup=kb.ikb_client_back_to_main_menu())
 
 async def location(call: types.CallbackQuery):
     await call.message.delete()
@@ -26,8 +30,12 @@ async def location(call: types.CallbackQuery):
 
 async def contacts (call: types.CallbackQuery):
     await call.message.delete()
-    await bot.send_message(call.message.chat.id,'Номер телефону: 096 141 1536',
-                           reply_markup=kb.ikb_client_back_to_main_menu())
+    with open('images/contact_baner.jpg','rb') as photo:
+        await bot.send_photo(call.message.chat.id,photo,
+                             caption='Номер телефону: 096 141 1536',
+                             reply_markup=kb.ikb_client_back_to_main_menu())
+    # await bot.send_message(call.message.chat.id,'Номер телефону: 096 141 1536',
+    #                        reply_markup=kb.ikb_client_back_to_main_menu())
 
 async def open_menu(call: types.CallbackQuery):
     await call.message.delete()
@@ -38,8 +46,7 @@ async def open_menu(call: types.CallbackQuery):
 
 async def open_bar_menu(call: types.CallbackQuery):
     await call.message.delete()
-
-    with open('images/bar.jpeg','rb') as photo:
+    with open('images/main_bar_baner.jpg','rb') as photo:
         await bot.send_photo(call.message.chat.id,photo,
                              caption='Меню нашого закладу',
                              reply_markup=kb.ikb_client_bar())
@@ -47,34 +54,66 @@ async def open_bar_menu(call: types.CallbackQuery):
 
 async def open_rols(call: types.CallbackQuery):
     await call.message.delete()
-    await bot.send_message(call.message.chat.id,'Виберіть рол',reply_markup= await kb.ikb_client_rols())
+    with open('images/sushi_baner.jpg','rb') as photo:
+        await bot.send_photo(call.message.chat.id,photo,
+                                caption='Виберіть рол',
+                                reply_markup= await kb.ikb_client_rols())
+    #await bot.send_message(call.message.chat.id,'Виберіть рол',reply_markup= await kb.ikb_client_rols())
 
 async def open_pizza(call: types.CallbackQuery):
     await call.message.delete()
-    await bot.send_message(call.message.chat.id,'Виберіть піцу',reply_markup= await kb.ikb_client_pizza())
+    with open('images/pizza_baner.jpg','rb') as photo:
+        await bot.send_photo(call.message.chat.id,photo,
+                                caption='Виберіть піцу',
+                                reply_markup= await kb.ikb_client_pizza())
+    #await bot.send_message(call.message.chat.id,'Виберіть піцу',reply_markup= await kb.ikb_client_pizza())
 
 async def open_salats(call: types.CallbackQuery):
     await call.message.delete()
-    await bot.send_message(call.message.chat.id,'Виберіть салат',reply_markup= await kb.ikb_client_salats())
+    with open('images/salat_baner.jpg','rb') as photo:
+        await bot.send_photo(call.message.chat.id,photo,
+                                caption='Виберіть салат',
+                                reply_markup= await kb.ikb_client_salats())
+    #await bot.send_message(call.message.chat.id,'Виберіть салат',reply_markup= await kb.ikb_client_salats())
 
 async def open_first_dish(call: types.CallbackQuery):
     await call.message.delete()
-    await bot.send_message(call.message.chat.id,'Виберіть першу страву',reply_markup=  await kb.ikb_client_first_dish())
+    with open('images/firstDish_baner.jpg','rb') as photo:
+        await bot.send_photo(call.message.chat.id,photo,
+                                caption='Виберіть першу страву',
+                                reply_markup= await kb.ikb_client_first_dish())
+    #await bot.send_message(call.message.chat.id,'Виберіть першу страву',reply_markup=  await kb.ikb_client_first_dish())
 async def open_second_dish_type(call: types.CallbackQuery):
     await call.message.delete()
-    await bot.send_message(call.message.chat.id,'Виберіть другу страву',reply_markup= await kb.ikb_client_second_dish_type())
+    with open('images/secondDish_baner.jpg','rb') as photo:
+        await bot.send_photo(call.message.chat.id,photo,
+                                caption='Виберіть другу страву',
+                                reply_markup= await kb.ikb_client_second_dish_type())
+    #await bot.send_message(call.message.chat.id,'Виберіть другу страву',reply_markup= await kb.ikb_client_second_dish_type())
 
 async def open_cold_snacks(call: types.CallbackQuery):
     await call.message.delete()
-    await bot.send_message(call.message.chat.id,'Виберіть холодну закуску',reply_markup= await kb.ikb_client_cold_snacks())
+    with open('images/coldSnacks_baner.jpg','rb') as photo:
+        await bot.send_photo(call.message.chat.id,photo,
+                                caption='Виберіть холодну закуску',
+                                reply_markup= await kb.ikb_client_cold_snacks())
+    #await bot.send_message(call.message.chat.id,'Виберіть холодну закуску',reply_markup= await kb.ikb_client_cold_snacks())
 
 async def open_warm_snacks (call: types.CallbackQuery):
     await call.message.delete()
-    await bot.send_message(call.message.chat.id,'Виберіть гарячу закуску',reply_markup= await kb.ikb_client_warm_snacks())
+    with open('images/warmSnacks_baner.jpg','rb') as photo:
+        await bot.send_photo(call.message.chat.id,photo,
+                                caption='Виберіть гарячу закуску',
+                                reply_markup= await kb.ikb_client_warm_snacks())
+    #await bot.send_message(call.message.chat.id,'Виберіть гарячу закуску',reply_markup= await kb.ikb_client_warm_snacks())
 
 async def open_deserts(call: types.CallbackQuery):
     await call.message.delete()
-    await bot.send_message(call.message.chat.id,'Виберіть десерт',reply_markup= await kb.ikb_client_deserts())
+    with open('images/deserts_baner.jpg','rb') as photo:
+        await bot.send_photo(call.message.chat.id,photo,
+                                caption='Виберіть десерт',
+                                reply_markup= await kb.ikb_client_deserts())
+    #await bot.send_message(call.message.chat.id,'Виберіть десерт',reply_markup= await kb.ikb_client_deserts())
 
 
 
@@ -83,7 +122,11 @@ async def open_sushi(call: types.CallbackQuery):
     data=call.data.split('_')
     type=data[2]
     await call.message.delete()
-    await bot.send_message(call.message.chat.id,'Виберіть рол',reply_markup= await kb.ikb_client_sushi_type(type))
+    with open('images/sushi_baner.png', 'rb') as photo:
+        await bot.send_photo(call.message.chat.id, photo,
+                             caption='Виберіть рол',
+                             reply_markup= await kb.ikb_client_sushi_type(type))
+    #await bot.send_message(call.message.chat.id,'Виберіть рол',reply_markup= await kb.ikb_client_sushi_type(type))
 
 
 
@@ -97,47 +140,82 @@ async def back_to_menu(call: types.CallbackQuery):
                              reply_markup=kb.ikb_client_menu())
 async def back_to_rols_types(call: types.CallbackQuery):
     await call.message.delete()
-    await bot.send_message(call.message.chat.id,'Виберіть рол',reply_markup= await kb.ikb_client_rols())
+    with open('images/sushi_baner.png', 'rb') as photo:
+        await bot.send_photo(call.message.chat.id, photo,
+                             caption='Виберіть рол',
+                             reply_markup=await kb.ikb_client_rols())
 
 async def open_second_dish(call: types.CallbackQuery):
     data=call.data.split('_')
     type=data[3]
     await call.message.delete()
-    await bot.send_message(call.message.chat.id,'Виберіть другу страву',reply_markup= await kb.ikb_client_second_dish(type))
+    with open('images/secondDish_baner.jpg','rb') as photo:
+        await bot.send_photo(call.message.chat.id,photo,
+                                caption='Виберіть другу страву',
+                                reply_markup= await kb.ikb_client_second_dish(type))
+    #await bot.send_message(call.message.chat.id,'Виберіть другу страву',reply_markup= await kb.ikb_client_second_dish(type))
 
 
 async def open_drinks(call: types.CallbackQuery):
     await call.message.delete()
-    await bot.send_message(call.message.chat.id,'Виберіть напій',reply_markup= await kb.ikb_client_drinks())
+    with open('images/drinks_baner.jpg','rb') as photo:
+        await bot.send_photo(call.message.chat.id,photo,
+                                caption='Виберіть напій',
+                                reply_markup= await kb.ikb_client_drinks())
+    #await bot.send_message(call.message.chat.id,'Виберіть напій',reply_markup= await kb.ikb_client_drinks())
 
 async def open_drinks_bar(call: types.CallbackQuery):
     await call.message.delete()
-    await bot.send_message(call.message.chat.id,'Виберіть напій',reply_markup= await kb.ikb_client_drinks_bar())
+    with open('images/nonAlcohol_baner.jpg','rb') as photo:
+        await bot.send_photo(call.message.chat.id,photo,
+                                caption='Виберіть напій',
+                                reply_markup= await kb.ikb_client_drinks_bar())
+    #await bot.send_message(call.message.chat.id,'Виберіть напій',reply_markup= await kb.ikb_client_drinks_bar())
 
 async def open_cocktails_types(call: types.CallbackQuery):
     await call.message.delete()
-    await bot.send_message(call.message.chat.id,'Виберіть коктейль',reply_markup= await kb.ikb_client_coctails())
+    with open('images/coctail_baner.jpg','rb') as photo:
+        await bot.send_photo(call.message.chat.id,photo,
+                                caption='Виберіть тип коктейлю',
+                                reply_markup= await kb.ikb_client_coctails())
+    #await bot.send_message(call.message.chat.id,'Виберіть коктейль',reply_markup= await kb.ikb_client_coctails())
 
 
 async def open_cocktails(call: types.CallbackQuery):
     data=call.data.split('_')
     type=data[2]
     await call.message.delete()
-    await bot.send_message(call.message.chat.id,'Виберіть коктейль',reply_markup= await kb.ikb_client_coctails_type(type))
+    with open('images/coctail_baner.jpg','rb') as photo:
+        await bot.send_photo(call.message.chat.id,photo,
+                                caption='Виберіть коктейль',
+                                reply_markup= await kb.ikb_client_coctails_type(type))
+    #await bot.send_message(call.message.chat.id,'Виберіть коктейль',reply_markup= await kb.ikb_client_coctails_type(type))
 
 
 async def open_alcohol_type(call: types.CallbackQuery):
     await call.message.delete()
-    await bot.send_message(call.message.chat.id,'Виберіть тип алкоголю',reply_markup= await kb.ikb_client_alcohol())
+    with open('images/alcohol_baner.jpg','rb') as photo:
+        await bot.send_photo(call.message.chat.id,photo,
+                                caption='Виберіть тип алкоголю',
+                                reply_markup= await kb.ikb_client_alcohol())
+    #await bot.send_message(call.message.chat.id,'Виберіть тип алкоголю',reply_markup= await kb.ikb_client_alcohol())
 
 async def open_alcohol(call: types.CallbackQuery):
     data=call.data.split('_')
     type=data[2]
     await call.message.delete()
-    await bot.send_message(call.message.chat.id,'Виберіть алкоголь',reply_markup= await kb.ikb_client_alcohol_type(type))
+    with open('images/alcohol_baner.jpg','rb') as photo:
+        await bot.send_photo(call.message.chat.id,photo,
+                                caption='Виберіть алкоголь',
+                                reply_markup= await kb.ikb_client_alcohol_type(type))
+    #await bot.send_message(call.message.chat.id,'Виберіть алкоголь',reply_markup= await kb.ikb_client_alcohol_type(type))
 async def back_to_second_dish_types(call: types.CallbackQuery):
     await call.message.delete()
-    await bot.send_message(call.message.chat.id,'Виберіть другу страву',reply_markup= await kb.ikb_client_second_dish_type())
+    with open('images/secondDish_baner.jpg','rb') as photo:
+        await bot.send_photo(call.message.chat.id,photo,
+                                caption='Виберіть другу страву',
+                                reply_markup= await kb.ikb_client_second_dish_type())
+    #await bot.send_message(call.message.chat.id,'Виберіть другу страву',reply_markup= await kb.ikb_client_second_dish_type())
 
 async def back_to_main_menu(call: types.CallbackQuery):
     await call.message.delete()
@@ -145,18 +223,26 @@ async def back_to_main_menu(call: types.CallbackQuery):
 
 async def back_to_bar_menu(call: types.CallbackQuery):
     await call.message.delete()
-    with open('images/bar.jpeg', 'rb') as photo:
+    with open('images/main_bar_baner.jpg', 'rb') as photo:
         await bot.send_photo(call.message.chat.id, photo,
                              caption='Меню нашого закладу',
                              reply_markup=kb.ikb_client_bar())
 
 async def back_to_coctails_menu_types(call: types.CallbackQuery):
     await call.message.delete()
-    await bot.send_message(call.message.chat.id, 'Виберіть коктейль', reply_markup=await kb.ikb_client_coctails())
+    with open('images/coctail_baner.jpg','rb') as photo:
+        await bot.send_photo(call.message.chat.id,photo,
+                                caption='Виберіть тип коктейлю',
+                                reply_markup= await kb.ikb_client_coctails())
+    #await bot.send_message(call.message.chat.id, 'Виберіть коктейль', reply_markup=await kb.ikb_client_coctails())
 
 async def back_to_alcohol_menu_types(call: types.CallbackQuery):
     await call.message.delete()
-    await bot.send_message(call.message.chat.id, 'Виберіть тип алкогою', reply_markup=await kb.ikb_client_alcohol())
+    with open('images/alcohol_baner.jpg','rb') as photo:
+        await bot.send_photo(call.message.chat.id,photo,
+                                caption='Виберіть тип алкогою',
+                                reply_markup= await kb.ikb_client_alcohol())
+    #await bot.send_message(call.message.chat.id, 'Виберіть тип алкогою', reply_markup=await kb.ikb_client_alcohol())
 def register_handlers_client(dp: Dispatcher):
     dp.register_message_handler(start_command, commands=['start'])
     dp.register_callback_query_handler(wifi_command, text='wifi')
