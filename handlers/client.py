@@ -124,6 +124,17 @@ async def open_cocktails(call: types.CallbackQuery):
     type=data[2]
     await call.message.delete()
     await bot.send_message(call.message.chat.id,'Виберіть коктейль',reply_markup= await kb.ikb_client_coctails_type(type))
+
+
+async def open_alcohol_type(call: types.CallbackQuery):
+    await call.message.delete()
+    await bot.send_message(call.message.chat.id,'Виберіть тип алкоголю',reply_markup= await kb.ikb_client_alcohol())
+
+async def open_alcohol(call: types.CallbackQuery):
+    data=call.data.split('_')
+    type=data[2]
+    await call.message.delete()
+    await bot.send_message(call.message.chat.id,'Виберіть алкоголь',reply_markup= await kb.ikb_client_alcohol_type(type))
 async def back_to_second_dish_types(call: types.CallbackQuery):
     await call.message.delete()
     await bot.send_message(call.message.chat.id,'Виберіть другу страву',reply_markup= await kb.ikb_client_second_dish_type())
@@ -139,9 +150,13 @@ async def back_to_bar_menu(call: types.CallbackQuery):
                              caption='Меню нашого закладу',
                              reply_markup=kb.ikb_client_bar())
 
-async def back_to_bar_menu_types(call: types.CallbackQuery):
+async def back_to_coctails_menu_types(call: types.CallbackQuery):
     await call.message.delete()
     await bot.send_message(call.message.chat.id, 'Виберіть коктейль', reply_markup=await kb.ikb_client_coctails())
+
+async def back_to_alcohol_menu_types(call: types.CallbackQuery):
+    await call.message.delete()
+    await bot.send_message(call.message.chat.id, 'Виберіть тип алкогою', reply_markup=await kb.ikb_client_alcohol())
 def register_handlers_client(dp: Dispatcher):
     dp.register_message_handler(start_command, commands=['start'])
     dp.register_callback_query_handler(wifi_command, text='wifi')
@@ -165,8 +180,11 @@ def register_handlers_client(dp: Dispatcher):
     dp.register_callback_query_handler(back_to_rols_types, text='back_to_rols_types')
     dp.register_callback_query_handler(back_to_second_dish_types, text='back_to_second_dish_types')
     dp.register_callback_query_handler(back_to_bar_menu, text='back_to_bar_menu')
-    dp.register_callback_query_handler(back_to_bar_menu_types, text='back_to_bar_menu_types')
+    dp.register_callback_query_handler(back_to_coctails_menu_types, text='back_to_bar_menu_types')
+    dp.register_callback_query_handler(back_to_alcohol_menu_types, text='back_to_alcohol_menu_types')
     dp.register_callback_query_handler(open_cocktails_types, text='cocktails')
     dp.register_callback_query_handler(open_cocktails, Text(startswith='open_cocktails_'))
     dp.register_callback_query_handler(open_drinks_bar, text='drinks_bar')
+    dp.register_callback_query_handler(open_alcohol_type, text='alcohol')
+    dp.register_callback_query_handler(open_alcohol, Text(startswith='open_alcohol_'))
 

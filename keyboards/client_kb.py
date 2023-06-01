@@ -178,7 +178,26 @@ async def ikb_client_coctails() -> InlineKeyboardMarkup:
     back=InlineKeyboardButton('Назад',callback_data='back_to_bar_menu')
     ikb_client_coctails_type.add(back)
     return ikb_client_coctails_type
+async def ikb_client_alcohol_type(type: str) -> InlineKeyboardMarkup:
+    ikb_client_alcohol=InlineKeyboardMarkup(row_width=1)
+    alcohol=await postgres_db.get_alcohol()
+    for dish in alcohol:
+        if dish['type']==type:
+            alcohol_button=InlineKeyboardButton(text=dish['dish'],callback_data=f"info_about_alcohol_{dish['id']}")
+            ikb_client_alcohol.add(alcohol_button)
+    back=InlineKeyboardButton('Назад',callback_data='back_to_alcohol_menu_types')
+    ikb_client_alcohol.add(back)
+    return ikb_client_alcohol
 
+async def ikb_client_alcohol() -> InlineKeyboardMarkup:
+    ikb_client_alcohol_type=InlineKeyboardMarkup(row_width=1)
+    alcohol=await postgres_db.get_alcohol_types()
+    for type in alcohol:
+        alcohol_type_button=InlineKeyboardButton(text=utils.alcohol_types[type],callback_data=f"open_alcohol_{type}")
+        ikb_client_alcohol_type.add(alcohol_type_button)
+    back=InlineKeyboardButton('Назад',callback_data='back_to_bar_menu')
+    ikb_client_alcohol_type.add(back)
+    return ikb_client_alcohol_type
 def ikb_client_menu() -> InlineKeyboardMarkup:
     ikb_client_menu=InlineKeyboardMarkup(row_width=2)
     rols=InlineKeyboardMarkup(text='Роли🍣',callback_data='rols')

@@ -21,3 +21,13 @@ cocktails_types={
     'nonAlcoholic':'Безалкогольні',
     'shot':'Шоти'
 }
+
+alcohol_types={
+    'horilka':'Горілка',
+    'wine':'Вино',
+    'beer':'Пиво',
+    'cognac':'Коньяк',
+    'whiskey':'Віскі',
+    'likers':'Лікери',
+    'shamp':'Шампанське'
+}

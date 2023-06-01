@@ -94,14 +94,34 @@ async def get_cocktails_types()->list:
                     type_list.append(type['type'])
     return type_list
 
+async def get_alcohol():
+    async with pool.acquire() as connection:
+        async with connection.transaction():
+            return await connection.fetch("SELECT * FROM menu_alcohol ")
+
+
+async def get_alcohol_types()->list:
+    type_list=[]
+    async with pool.acquire() as connection:
+        async with connection.transaction():
+            alcohol=await connection.fetch("SELECT * FROM menu_alcohol ")
+            for type in alcohol:
+                if type['type'] not in type_list:
+                    type_list.append(type['type'])
+    return type_list
+
+
+
+
 # async def create_table():
 #     async with pool.acquire() as connection:
 #         async with connection.transaction():
 #             await connection.execute('''
-#                 CREATE TABLE IF NOT EXISTS menu_coctails (
+#                 CREATE TABLE IF NOT EXISTS menu_alcohol (
 #                     dish VARCHAR(255),
-#                     storage VARCHAR(255),
-#                     price INT NOT NULL
+#
+#                     price INT NOT NULL,
+#                     type VARCHAR(255)
 #                 )
 #             ''')
 #             print("Таблиця успішно створена!")
@@ -111,7 +131,7 @@ async def get_cocktails_types()->list:
 #     async with pool.acquire() as connection:
 #         async with connection.transaction():
 #             await connection.execute('''
-#                 ALTER TABLE menu_coctails
+#                 ALTER TABLE menu_alcohol
 #                 ADD COLUMN id SERIAL PRIMARY KEY
 #             ''')
 #             print("Стовбець успішно доданий!")
