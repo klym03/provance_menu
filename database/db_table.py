@@ -114,52 +114,96 @@ async def start_db() -> None:
                 )
             """)
         p=await pool.fetch("""SELECT * FROM menu_sushi""")
-
+        if len(p)==0:
+            for sushi in utils_db.menu_sushi:
+                await pool.execute("""
+                    INSERT INTO menu_sushi (dish,price,storage,type) VALUES ($1,$2,$3,$4)
+                """, sushi['dish'], sushi['price'], sushi['storage'], sushi['type'])
+            for pizza in utils_db.menu_pizza:
+                await pool.execute("""
+                    INSERT INTO menu_pizza (dish,storage,price) VALUES ($1,$2,$3)
+                """, pizza['dish'], pizza['storage'], pizza['price'])
+            for salat in utils_db.menu_salats:
+                await pool.execute("""
+                    INSERT INTO menu_salats (dish,storage,weight,price) VALUES ($1,$2,$3,$4)
+                """, salat['dish'], salat['storage'], salat['weight'], salat['price'])
+            for second_dish in utils_db.menu_second_dish:
+                await pool.execute("""
+                    INSERT INTO menu_second_dish (dish,weight,price,type) VALUES ($1,$2,$3,$4)
+                """, second_dish['dish'], second_dish['weight'], second_dish['price'], second_dish['type'])
+            for first_dish in utils_db.menu_first_dish:
+                await pool.execute("""
+                    INSERT INTO menu_first_dish (dish,weight,price) VALUES ($1,$2,$3)
+                """, first_dish['dish'], first_dish['weight'], first_dish['price'])
+            for desert in utils_db.menu_deserts:
+                await pool.execute("""
+                    INSERT INTO menu_deserts (dish,weight,price) VALUES ($1,$2,$3)
+                """, desert['dish'], desert['weight'], desert['price'])
+            for coctail in utils_db.menu_coctails:
+                await pool.execute("""
+                    INSERT INTO menu_coctails (dish,storage,price,type) VALUES ($1,$2,$3,$4)
+                """, coctail['dish'], coctail['storage'], coctail['price'], coctail['type'])
+            for drink in utils_db.menu_drinks:
+                await pool.execute("""
+                    INSERT INTO menu_drinks (dish,price) VALUES ($1,$2)
+                """, drink['dish'], drink['price'])
+            for alcohol in utils_db.menu_alcohol:
+                await pool.execute("""
+                    INSERT INTO menu_alcohol (dish,price,type) VALUES ($1,$2,$3)
+                """, alcohol['dish'], alcohol['price'], alcohol['type'])
+            for cold_snack in utils_db.cold_snacks:
+                await pool.execute("""
+                    INSERT INTO cold_snacks (dish,weight,price) VALUES ($1,$2,$3)
+                """, cold_snack['dish'], cold_snack['weight'], cold_snack['price'])
+            for warm_snack in utils_db.warm_snacks:
+                await pool.execute("""
+                    INSERT INTO warm_snacks (dish,weight,price) VALUES ($1,$2,$3)
+                """, warm_snack['dish'], warm_snack['weight'], warm_snack['price'])
         # await pool.execute("""
         #     INSERT INTO menu_sushi  VALUES ($1)
         # """,json.dumps(utils_db.menu_sushi))
-        for sushi in utils_db.menu_sushi:
-            await pool.execute("""
-                INSERT INTO menu_sushi (dish,price,storage,type) VALUES ($1,$2,$3,$4)
-            """, sushi['dish'], sushi['price'], sushi['storage'], sushi['type'])
-        for pizza in utils_db.menu_pizza:
-            await pool.execute("""
-                INSERT INTO menu_pizza (dish,storage,price) VALUES ($1,$2,$3)
-            """, pizza['dish'], pizza['storage'], pizza['price'])
-        for salat in utils_db.menu_salats:
-            await pool.execute("""
-                INSERT INTO menu_salats (dish,storage,weight,price) VALUES ($1,$2,$3,$4)
-            """, salat['dish'], salat['storage'], salat['weight'], salat['price'])
-        for second_dish in utils_db.menu_second_dish:
-            await pool.execute("""
-                INSERT INTO menu_second_dish (dish,weight,price,type) VALUES ($1,$2,$3,$4)
-            """, second_dish['dish'], second_dish['weight'], second_dish['price'], second_dish['type'])
-        for first_dish in utils_db.menu_first_dish:
-            await pool.execute("""
-                INSERT INTO menu_first_dish (dish,weight,price) VALUES ($1,$2,$3)
-            """, first_dish['dish'], first_dish['weight'], first_dish['price'])
-        for desert in utils_db.menu_deserts:
-            await pool.execute("""
-                INSERT INTO menu_deserts (dish,weight,price) VALUES ($1,$2,$3)
-            """, desert['dish'], desert['weight'], desert['price'])
-        for coctail in utils_db.menu_coctails:
-            await pool.execute("""
-                INSERT INTO menu_coctails (dish,storage,price,type) VALUES ($1,$2,$3,$4)
-            """, coctail['dish'], coctail['storage'], coctail['price'], coctail['type'])
-        for drink in utils_db.menu_drinks:
-            await pool.execute("""
-                INSERT INTO menu_drinks (dish,price) VALUES ($1,$2)
-            """, drink['dish'], drink['price'])
-        for alcohol in utils_db.menu_alcohol:
-            await pool.execute("""
-                INSERT INTO menu_alcohol (dish,price,type) VALUES ($1,$2,$3)
-            """, alcohol['dish'], alcohol['price'], alcohol['type'])
-        for cold_snack in utils_db.cold_snacks:
-            await pool.execute("""
-                INSERT INTO cold_snacks (dish,weight,price) VALUES ($1,$2,$3)
-            """, cold_snack['dish'], cold_snack['weight'], cold_snack['price'])
-        for warm_snack in utils_db.warm_snacks:
-            await pool.execute("""
-                INSERT INTO warm_snacks (dish,weight,price) VALUES ($1,$2,$3)
-            """, warm_snack['dish'], warm_snack['weight'], warm_snack['price'])
+        # for sushi in utils_db.menu_sushi:
+        #     await pool.execute("""
+        #         INSERT INTO menu_sushi (dish,price,storage,type) VALUES ($1,$2,$3,$4)
+        #     """, sushi['dish'], sushi['price'], sushi['storage'], sushi['type'])
+        # for pizza in utils_db.menu_pizza:
+        #     await pool.execute("""
+        #         INSERT INTO menu_pizza (dish,storage,price) VALUES ($1,$2,$3)
+        #     """, pizza['dish'], pizza['storage'], pizza['price'])
+        # for salat in utils_db.menu_salats:
+        #     await pool.execute("""
+        #         INSERT INTO menu_salats (dish,storage,weight,price) VALUES ($1,$2,$3,$4)
+        #     """, salat['dish'], salat['storage'], salat['weight'], salat['price'])
+        # for second_dish in utils_db.menu_second_dish:
+        #     await pool.execute("""
+        #         INSERT INTO menu_second_dish (dish,weight,price,type) VALUES ($1,$2,$3,$4)
+        #     """, second_dish['dish'], second_dish['weight'], second_dish['price'], second_dish['type'])
+        # for first_dish in utils_db.menu_first_dish:
+        #     await pool.execute("""
+        #         INSERT INTO menu_first_dish (dish,weight,price) VALUES ($1,$2,$3)
+        #     """, first_dish['dish'], first_dish['weight'], first_dish['price'])
+        # for desert in utils_db.menu_deserts:
+        #     await pool.execute("""
+        #         INSERT INTO menu_deserts (dish,weight,price) VALUES ($1,$2,$3)
+        #     """, desert['dish'], desert['weight'], desert['price'])
+        # for coctail in utils_db.menu_coctails:
+        #     await pool.execute("""
+        #         INSERT INTO menu_coctails (dish,storage,price,type) VALUES ($1,$2,$3,$4)
+        #     """, coctail['dish'], coctail['storage'], coctail['price'], coctail['type'])
+        # for drink in utils_db.menu_drinks:
+        #     await pool.execute("""
+        #         INSERT INTO menu_drinks (dish,price) VALUES ($1,$2)
+        #     """, drink['dish'], drink['price'])
+        # for alcohol in utils_db.menu_alcohol:
+        #     await pool.execute("""
+        #         INSERT INTO menu_alcohol (dish,price,type) VALUES ($1,$2,$3)
+        #     """, alcohol['dish'], alcohol['price'], alcohol['type'])
+        # for cold_snack in utils_db.cold_snacks:
+        #     await pool.execute("""
+        #         INSERT INTO cold_snacks (dish,weight,price) VALUES ($1,$2,$3)
+        #     """, cold_snack['dish'], cold_snack['weight'], cold_snack['price'])
+        # for warm_snack in utils_db.warm_snacks:
+        #     await pool.execute("""
+        #         INSERT INTO warm_snacks (dish,weight,price) VALUES ($1,$2,$3)
+        #     """, warm_snack['dish'], warm_snack['weight'], warm_snack['price'])
 
