@@ -306,6 +306,5 @@ def register_handlers_client(dp: Dispatcher):
     dp.register_callback_query_handler(open_alcohol_type, text='alcohol')
     dp.register_callback_query_handler(open_alcohol, Text(startswith='open_alcohol_'))
     dp.register_callback_query_handler(info_about_dish, Text(startswith='info_about_'))
-    # dp.register_callback_query_handler(back_to_choice, Text(startswith='back_to_choice_'))
 
 

@@ -1,4 +1,4 @@
-from database import postgres_db
+from database import postgres_db, db_table
 from aiogram.utils import executor
 from create_bot import dp
 from handlers import client
@@ -6,7 +6,8 @@ from handlers import client
 
 async def on_startup(_):
     print('bot is online')
-    await postgres_db.connect_db()
+    # await postgres_db.connect_db()
+    await db_table.start_db()
     # await postgres_db.create_table()
     # await postgres_db.add_column()
 client.register_handlers_client(dp)
