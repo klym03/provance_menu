@@ -217,9 +217,11 @@ async def info_about_dish(call: types.CallbackQuery):
         message += f'<b>Вага:</b> <code>{dish["weight"]}</code> г\n'
     if 'price' in dish:
         message += f'<b>Ціна:</b> <code>{dish["price"]}</code> грн\n'
-    await bot.send_message(call.message.chat.id, message,
-                           reply_markup=await kb.ikb_client_back_to_choice(dish_type, dish_type_name))
-
+    # await bot.send_message(call.message.chat.id, message,
+    #                        reply_markup=await kb.ikb_client_back_to_choice(dish_type, dish_type_name))
+    with open(f"images/{dish_type}_{dish['id']}.PNG", 'rb') as photo:
+        await bot.send_photo(call.message.chat.id, photo, caption=message,
+                             reply_markup=await kb.ikb_client_back_to_choice(dish_type, dish_type_name))
 
 def register_handlers_client(dp: Dispatcher):
     dp.register_message_handler(start_command, commands=['start'])
