@@ -1,0 +1,28 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:14
+    restart: on-failure
+    env_file:
+      - ./.env
+    ports:
+      - 5436:5432
+    networks:
+      - somenet
+  bot:
+    image: python-bot
+    build: .
+    command: sh -c "python3 -m main"
+    env_file:
+      - ./.env
+    restart: always
+    depends_on:
+      - db
+    ports:
+      - 5000:5000
+    networks:
+      - somenet
+
+networks:
+  somenet:
+    driver: bridge

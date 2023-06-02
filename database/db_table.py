@@ -1,13 +1,13 @@
 import json
 
-import psycopg2
 import asyncpg
 
 from database import utils_db
 
-pool=asyncpg.create_pool()
+pool = asyncpg.create_pool()
 from dotenv.main import load_dotenv
 import os
+
 load_dotenv()
 DB_NAME = os.environ['POSTGRES_DB']
 DB_USERNAME = os.environ['POSTGRES_USER']
@@ -15,6 +15,7 @@ DB_PASSWORD = os.environ['POSTGRES_PASSWORD']
 DB_HOST = os.environ['POSTGRES_HOST']
 DB_PORT = os.environ['POSTGRES_PORT']
 pool = asyncpg.create_pool()
+
 
 async def start_db() -> None:
     global pool
@@ -113,8 +114,8 @@ async def start_db() -> None:
                 price INTEGER NOT NULL
                 )
             """)
-        p=await pool.fetch("""SELECT * FROM menu_sushi""")
-        if len(p)==0:
+        p = await pool.fetch("""SELECT * FROM menu_sushi""")
+        if len(p) == 0:
             for sushi in utils_db.menu_sushi:
                 await pool.execute("""
                     INSERT INTO menu_sushi (dish,price,storage,type) VALUES ($1,$2,$3,$4)
@@ -206,4 +207,3 @@ async def start_db() -> None:
         #     await pool.execute("""
         #         INSERT INTO warm_snacks (dish,weight,price) VALUES ($1,$2,$3)
         #     """, warm_snack['dish'], warm_snack['weight'], warm_snack['price'])
-
