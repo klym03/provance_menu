@@ -12,10 +12,11 @@ def ikb_client_main_menu() -> InlineKeyboardMarkup:
     ikb_client_main_menu = InlineKeyboardMarkup(row_width=1)
     menu = InlineKeyboardButton(text='📖 Меню', callback_data='menu')
     bar = InlineKeyboardButton(text='🍸 Барне меню', callback_data='bar')
+    kal = InlineKeyboardButton(text='📋 Кальянна карта', callback_data='kal')
     wifi = InlineKeyboardButton(text='📟 Wi-Fi', callback_data='wifi')
     loct = InlineKeyboardButton(text='📍 Локація', callback_data='location')
     cont = InlineKeyboardButton(text='📞 Контакти', callback_data='contacts')
-    ikb_client_main_menu.add(menu, bar, wifi, loct, cont)
+    ikb_client_main_menu.add(menu, bar,kal, wifi, loct, cont)
     return ikb_client_main_menu
 
 
@@ -208,8 +209,19 @@ async def ikb_client_alcohol_type(type: str) -> InlineKeyboardMarkup:
     back = InlineKeyboardButton('🔙 Назад', callback_data='alcohol')
     ikb_client_alcohol.add(back)
     return ikb_client_alcohol
-
-
+async def ikb_client_calian() -> InlineKeyboardMarkup:
+    ikb_client_calian = InlineKeyboardMarkup(row_width=2)
+    light = InlineKeyboardButton(text='Light(легкий)', callback_data='f')
+    medium = InlineKeyboardButton(text='Medium(середній)', callback_data='f')
+    hard = InlineKeyboardButton(text='Hard(важкий)', callback_data='f')
+    tangiers = InlineKeyboardButton(text='Tangiers(танжер)', callback_data='f')
+    back = InlineKeyboardButton(text='🔙 Назад', callback_data='main_menu')
+    light_price = InlineKeyboardButton(text='180 грн', callback_data='f')
+    medium_price = InlineKeyboardButton(text='200 грн', callback_data='f')
+    hard_price = InlineKeyboardButton(text='250 грн', callback_data='f')
+    tangiers_price = InlineKeyboardButton(text='350 грн', callback_data='f')
+    ikb_client_calian.add(light, light_price, medium, medium_price, hard, hard_price, tangiers, tangiers_price, back)
+    return ikb_client_calian
 async def ikb_client_alcohol() -> InlineKeyboardMarkup:
     ikb_client_alcohol_type = InlineKeyboardMarkup(row_width=1)
     alcohol = await postgres_db.get_alcohol_types()

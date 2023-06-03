@@ -22,7 +22,10 @@ async def start_menu(message: types.Message):
 
 async def main_menu(call: types.CallbackQuery):
     await start_menu(call.message)
-
+async def open_calian(call: types.CallbackQuery):
+    await call.message.delete()
+    await bot.send_message(call.message.chat.id, 'Кальянна карта 👇🏽',
+                           reply_markup=await kb.ikb_client_calian())
 
 async def wifi_command(call: types.CallbackQuery):
     await call.message.delete()
@@ -248,3 +251,4 @@ def register_handlers_client(dp: Dispatcher):
     dp.register_callback_query_handler(open_alcohol_type, text='alcohol')
     dp.register_callback_query_handler(open_alcohol, Text(startswith='open_alcohol_'))
     dp.register_callback_query_handler(info_about_dish, Text(startswith='info_about_'))
+    dp.register_callback_query_handler(open_calian, text='kal')
