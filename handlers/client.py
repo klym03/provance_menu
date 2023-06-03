@@ -69,7 +69,7 @@ async def open_rols(call: types.CallbackQuery):
     await call.message.delete()
     with open('images/sushi_baner.jpg', 'rb') as photo:
         await bot.send_photo(call.message.chat.id, photo,
-                             caption='Оберіть рол',
+                             caption='Оберіть рол 🍱',
                              reply_markup=await kb.ikb_client_rols())
 
 
@@ -135,7 +135,7 @@ async def open_sushi(call: types.CallbackQuery):
     await call.message.delete()
     with open('images/sushi_baner.jpg', 'rb') as photo:
         await bot.send_photo(call.message.chat.id, photo,
-                             caption='Оберіть рол 🍣',
+                             caption='Оберіть рол 🍱',
                              reply_markup=await kb.ikb_client_sushi_type(type))
 
 
