@@ -13,7 +13,6 @@ async def start_command(message: types.Message):
 
 
 async def start_menu(message: types.Message):
-    await message.delete()
     with open('images/mainBanner.jpg', 'rb') as photo:
         await bot.send_photo(message.chat.id, photo,
                              caption='Вітаємо! 👋🏽\nЦе помічник нашого закладу 👩🏽‍🍳\n\nБажаєте переглянути меню нашого закладу та актуальну інформацію? Тоді тисніть на одну з кнопок 👇🏽',
@@ -21,6 +20,7 @@ async def start_menu(message: types.Message):
 
 
 async def main_menu(call: types.CallbackQuery):
+    await call.message.delete()
     await start_menu(call.message)
 async def open_calian(call: types.CallbackQuery):
     await call.message.delete()
