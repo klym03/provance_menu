@@ -1,5 +1,6 @@
 from aiogram import types, Dispatcher
 from aiogram.dispatcher.filters import Text
+from aiogram.types import message
 
 import utils
 from database import postgres_db
@@ -13,11 +14,17 @@ async def start_command(message: types.Message):
 
 
 async def start_menu(message: types.Message):
-    await message.delete()
-    with open('images/mainBanner.jpg', 'rb') as photo:
-        await bot.send_photo(message.chat.id, photo,
-                             caption='Вітаємо! 👋🏽\nЦе помічник нашого закладу 👩🏽‍🍳\n\nБажаєте переглянути меню нашого закладу та актуальну інформацію? Тоді тисніть на одну з кнопок 👇🏽',
-                             reply_markup=kb.ikb_client_main_menu())
+    user_id = message.chat.id
+    users= await postgres_db.get_users()
+    if user_id>0:
+        if user_id not in [user['id'] for user in users]:
+            await postgres_db.add_user(user_id)
+        await message.delete()
+        with open('images/mainBanner.jpg', 'rb') as photo:
+            await bot.send_photo(message.chat.id, photo,
+                                 caption='Вітаємо! 👋🏽\nЦе помічник нашого закладу 👩🏽‍🍳\n\nБажаєте переглянути меню нашого закладу та актуальну інформацію? Тоді тисніть на одну з кнопок 👇🏽',
+                                 reply_markup=kb.ikb_client_main_menu())
+
 
 
 async def main_menu(call: types.CallbackQuery):
@@ -199,6 +206,10 @@ async def open_alcohol(call: types.CallbackQuery):
         await bot.send_photo(call.message.chat.id, photo,
                              caption='Оберіть алкоголь 🍷',
                              reply_markup=await kb.ikb_client_alcohol_type(type))
+# async def open_basket(call: types.CallbackQuery):
+#     await call.message.delete()
+#     await call.from_user.id
+#     await bot.send_message(call.message.chat.id, 'Кошик пустий 🛒', reply_markup=kb.ikb_client_basket())
 
 
 async def info_about_dish(call: types.CallbackQuery):
@@ -209,6 +220,8 @@ async def info_about_dish(call: types.CallbackQuery):
     dishType = utils.menu_types[dish_type]
     dish = await postgres_db.get_info_about_dish(dishType, dish_id)
     dish_type_name = None
+    # dish_name= dish['dish']
+    # dish_price = dish['price']
     message = ''
     if 'type' in dish:
         message += f"<b>{utils.dict_types[dish['type']]}</b>\n"
@@ -234,6 +247,7 @@ def register_handlers_client(dp: Dispatcher):
     dp.register_callback_query_handler(open_menu, text='menu')
     dp.register_callback_query_handler(open_bar_menu, text='bar')
     dp.register_callback_query_handler(open_rols, text='sushi')
+    # dp.register_callback_query_handler(open_basket, text='basket')
     dp.register_callback_query_handler(open_sushi, Text(startswith='open_sushi_'))
     dp.register_callback_query_handler(open_pizza, text='pizza')
     dp.register_callback_query_handler(open_salats, text='salats')

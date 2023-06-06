@@ -143,3 +143,28 @@ async def get_info_about_dish(dish_type, dish_id: int):
     async with pool.acquire() as connection:
         async with connection.transaction():
             return await connection.fetchrow(f"SELECT * FROM {dish_type} WHERE id={dish_id}")
+
+async def create_user_table():
+    async with pool.acquire() as connection:
+        await connection.execute('''
+            CREATE TABLE IF NOT EXISTS users (
+                id BIGINT PRIMARY KEY,
+                basket TEXT[]
+            )
+        ''')
+async def add_user(user_id: int):
+    async with pool.acquire() as connection:
+        await connection.execute(f'''
+            INSERT INTO users (id) VALUES ({user_id})
+        ''')
+async def get_user_basket(user_id: int):
+    async with pool.acquire() as connection:
+        return await connection.fetchrow(f'''
+            SELECT * FROM users WHERE id={user_id}
+        ''')
+
+async def get_users():
+    async with pool.acquire() as connection:
+        return await connection.fetch(f'''
+            SELECT * FROM users
+        ''')

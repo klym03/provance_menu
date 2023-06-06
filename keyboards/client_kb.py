@@ -16,10 +16,20 @@ def ikb_client_main_menu() -> InlineKeyboardMarkup:
     wifi = InlineKeyboardButton(text='📟 Wi-Fi', callback_data='wifi')
     loct = InlineKeyboardButton(text='📍 Локація', callback_data='location')
     cont = InlineKeyboardButton(text='📞 Контакти', callback_data='contacts')
+    # basket = InlineKeyboardButton(text='🛒 Корзина', callback_data='basket')
     ikb_client_main_menu.add(menu, bar,kal, wifi, loct, cont)
     return ikb_client_main_menu
 
-
+def ikb_client_basket(dish_list,price) -> InlineKeyboardMarkup:
+    ikb_client_basket = InlineKeyboardMarkup(row_width=2)
+    basket_clear = InlineKeyboardButton(text='Очистити корзину', callback_data='basket_clear')
+    for dish in dish_list:
+        basket_dish = InlineKeyboardButton(text=f'{dish}', callback_data=f'basket_dish_{dish}')
+        basket_price= InlineKeyboardButton(text=f'{price}', callback_data=f'basket_price_{price}')
+        ikb_client_basket.add(basket_dish,basket_price)
+    back= InlineKeyboardButton('🔙 Назад', callback_data='main_menu')
+    ikb_client_basket.add(basket_clear, back)
+    return ikb_client_basket
 def ikb_client_back_to_main_menu() -> InlineKeyboardMarkup:
     ikb_client = InlineKeyboardMarkup()
     back = InlineKeyboardButton('🔙 Назад', callback_data='main_menu')
@@ -247,11 +257,12 @@ async def ikb_client_alcohol() -> InlineKeyboardMarkup:
 
 
 async def ikb_client_back_to_choice(type, second_type) -> InlineKeyboardMarkup:
-    ikb_client_back_to_choice = InlineKeyboardMarkup(row_width=1)
+    ikb_client_back_to_choice = InlineKeyboardMarkup(row_width=2)
     if second_type != None:
         back = InlineKeyboardButton('🔙 Назад', callback_data=f"open_{type}_{second_type}")
     else:
         back = InlineKeyboardButton('🔙 Назад', callback_data=type)
+    # add_to_basket = InlineKeyboardButton('🛒 Додати в кошик', callback_data=f"add_to_basket_{dish}_{price}")
     ikb_client_back_to_choice.add(back)
     return ikb_client_back_to_choice
 

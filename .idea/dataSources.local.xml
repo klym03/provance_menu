@@ -27,5 +27,20 @@
         </introspection-scope>
       </schema-mapping>
     </data-source>
+    <data-source name="postgres@45.83.192.126" uuid="8b6af62c-f77f-4c1a-a615-5dcba959dcd2">
+      <database-info product="PostgreSQL" version="14.8 (Debian 14.8-1.pgdg110+1)" jdbc-version="4.2" driver-name="PostgreSQL JDBC Driver" driver-version="42.6.0" dbms="POSTGRES" exact-version="14.8" exact-driver-version="42.6">
+        <identifier-quote-string>&quot;</identifier-quote-string>
+      </database-info>
+      <case-sensitivity plain-identifiers="lower" quoted-identifiers="exact" />
+      <secret-storage>master_key</secret-storage>
+      <user-name>patrick</user-name>
+      <schema-mapping>
+        <introspection-scope>
+          <node kind="database" qname="@">
+            <node kind="schema" qname="@" />
+          </node>
+        </introspection-scope>
+      </schema-mapping>
+    </data-source>
   </component>
 </project>

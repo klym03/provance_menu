@@ -8,5 +8,12 @@
       <jdbc-url>jdbc:postgresql://localhost:5432/provance</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="postgres@45.83.192.126" uuid="8b6af62c-f77f-4c1a-a615-5dcba959dcd2">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://45.83.192.126:5436/postgres</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>
