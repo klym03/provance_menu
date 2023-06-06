@@ -22,7 +22,10 @@ async def start_menu(message: types.Message):
 
 async def main_menu(call: types.CallbackQuery):
     await start_menu(call.message)
-
+async def open_calian(call: types.CallbackQuery):
+    await call.message.delete()
+    await bot.send_message(call.message.chat.id, 'Кальянна карта 👇🏽',
+                           reply_markup=await kb.ikb_client_calian())
 
 async def wifi_command(call: types.CallbackQuery):
     await call.message.delete()
@@ -66,7 +69,7 @@ async def open_rols(call: types.CallbackQuery):
     await call.message.delete()
     with open('images/sushi_baner.jpg', 'rb') as photo:
         await bot.send_photo(call.message.chat.id, photo,
-                             caption='Оберіть рол',
+                             caption='Оберіть рол 🍱',
                              reply_markup=await kb.ikb_client_rols())
 
 
@@ -132,7 +135,7 @@ async def open_sushi(call: types.CallbackQuery):
     await call.message.delete()
     with open('images/sushi_baner.jpg', 'rb') as photo:
         await bot.send_photo(call.message.chat.id, photo,
-                             caption='Оберіть рол 🍣',
+                             caption='Оберіть рол 🍱',
                              reply_markup=await kb.ikb_client_sushi_type(type))
 
 
@@ -217,9 +220,11 @@ async def info_about_dish(call: types.CallbackQuery):
         message += f'<b>Вага:</b> <code>{dish["weight"]}</code> г\n'
     if 'price' in dish:
         message += f'<b>Ціна:</b> <code>{dish["price"]}</code> грн\n'
-    await bot.send_message(call.message.chat.id, message,
-                           reply_markup=await kb.ikb_client_back_to_choice(dish_type, dish_type_name))
-
+    # await bot.send_message(call.message.chat.id, message,
+    #                        reply_markup=await kb.ikb_client_back_to_choice(dish_type, dish_type_name))
+    with open(f"images/{dish_type}_{dish['id']}.PNG", 'rb') as photo:
+        await bot.send_photo(call.message.chat.id, photo, caption=message,
+                             reply_markup=await kb.ikb_client_back_to_choice(dish_type, dish_type_name))
 
 def register_handlers_client(dp: Dispatcher):
     dp.register_message_handler(start_command, commands=['start'])
@@ -246,3 +251,4 @@ def register_handlers_client(dp: Dispatcher):
     dp.register_callback_query_handler(open_alcohol_type, text='alcohol')
     dp.register_callback_query_handler(open_alcohol, Text(startswith='open_alcohol_'))
     dp.register_callback_query_handler(info_about_dish, Text(startswith='info_about_'))
+    dp.register_callback_query_handler(open_calian, text='kal')
