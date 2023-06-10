@@ -1,7 +1,7 @@
 from aiogram import types, Dispatcher
 from aiogram.dispatcher.filters import Text
 from aiogram.types import message
-
+import json
 import utils
 from database import postgres_db
 
@@ -15,11 +15,10 @@ async def start_command(message: types.Message):
 
 async def start_menu(message: types.Message):
     user_id = message.chat.id
-    users= await postgres_db.get_users()
+    user= await postgres_db.get_user(user_id)
     if user_id>0:
-        if user_id not in [user['id'] for user in users]:
+        if user is None:
             await postgres_db.add_user(user_id)
-        await message.delete()
         with open('images/mainBanner.jpg', 'rb') as photo:
             await bot.send_photo(message.chat.id, photo,
                                  caption='Вітаємо! 👋🏽\nЦе помічник нашого закладу 👩🏽‍🍳\n\nБажаєте переглянути меню нашого закладу та актуальну інформацію? Тоді тисніть на одну з кнопок 👇🏽',
@@ -28,6 +27,7 @@ async def start_menu(message: types.Message):
 
 
 async def main_menu(call: types.CallbackQuery):
+    await bot.delete_message(call.message.chat.id, call.message.message_id)
     await start_menu(call.message)
 async def open_calian(call: types.CallbackQuery):
     await call.message.delete()
@@ -217,11 +217,11 @@ async def info_about_dish(call: types.CallbackQuery):
     data = call.data.split('_')
     dish_type = data[2]
     dish_id = data[3]
+    number=data[4]
     dishType = utils.menu_types[dish_type]
     dish = await postgres_db.get_info_about_dish(dishType, dish_id)
     dish_type_name = None
-    # dish_name= dish['dish']
-    # dish_price = dish['price']
+    dish_id= dish['id']
     message = ''
     if 'type' in dish:
         message += f"<b>{utils.dict_types[dish['type']]}</b>\n"
@@ -233,12 +233,44 @@ async def info_about_dish(call: types.CallbackQuery):
         message += f'<b>Вага:</b> <code>{dish["weight"]}</code> г\n'
     if 'price' in dish:
         message += f'<b>Ціна:</b> <code>{dish["price"]}</code> грн\n'
+    # number=await set_number(call)
     # await bot.send_message(call.message.chat.id, message,
     #                        reply_markup=await kb.ikb_client_back_to_choice(dish_type, dish_type_name))
     with open(f"images/{dish_type}_{dish['id']}.PNG", 'rb') as photo:
         await bot.send_photo(call.message.chat.id, photo, caption=message,
-                             reply_markup=await kb.ikb_client_back_to_choice(dish_type, dish_type_name))
+                             reply_markup=await kb.ikb_client_back_to_choice(dish_type, dish_type_name,dish_id,number))
+async def add_to_basket(call: types.CallbackQuery):
+    data=call.data.split('_')
+    type=data[3]
+    dish_id=data[4]
+    number=data[5]
+    basket_dict={}
+    basket_dict[f"{type}_{dish_id}"]=int(number)
+    await postgres_db.add_to_basket(call.from_user.id,basket_dict)
+    await bot.answer_callback_query(call.id, 'Додано до кошика', show_alert=True)
 
+async def open_basket(call: types.CallbackQuery):
+    await call.message.delete()
+    basket=await postgres_db.get_basket(call.from_user.id)
+
+    if basket==None:
+        await bot.send_message(call.message.chat.id, 'Кошик пустий 🛒', reply_markup=kb.ikb_client_back_to_main_menu())
+    else:
+        dict_basket=json.loads(basket)
+
+        message=''
+        for key in dict_basket:
+            dish_type=key.split('_')[0]
+            dish_id=key.split('_')[1]
+            dish_record=await postgres_db.get_info_about_dish(utils.menu_types[dish_type],dish_id)
+            dish=dish_record['dish']
+            message+=f"{dish} - {dict_basket[key]}шт.\n"
+        await bot.send_message(call.message.chat.id, message, reply_markup=kb.ikb_client_basket())
+
+async def clear_basket(call: types.CallbackQuery):
+    await call.message.delete()
+    await postgres_db.clear_basket(call.from_user.id)
+    await bot.send_message(call.message.chat.id, 'Кошик пустий 🛒', reply_markup=kb.ikb_client_basket())
 def register_handlers_client(dp: Dispatcher):
     dp.register_message_handler(start_command, commands=['start'])
     dp.register_callback_query_handler(wifi_command, text='wifi')
@@ -247,7 +279,7 @@ def register_handlers_client(dp: Dispatcher):
     dp.register_callback_query_handler(open_menu, text='menu')
     dp.register_callback_query_handler(open_bar_menu, text='bar')
     dp.register_callback_query_handler(open_rols, text='sushi')
-    # dp.register_callback_query_handler(open_basket, text='basket')
+    dp.register_callback_query_handler(open_basket, text='basket')
     dp.register_callback_query_handler(open_sushi, Text(startswith='open_sushi_'))
     dp.register_callback_query_handler(open_pizza, text='pizza')
     dp.register_callback_query_handler(open_salats, text='salats')
@@ -266,3 +298,6 @@ def register_handlers_client(dp: Dispatcher):
     dp.register_callback_query_handler(open_alcohol, Text(startswith='open_alcohol_'))
     dp.register_callback_query_handler(info_about_dish, Text(startswith='info_about_'))
     dp.register_callback_query_handler(open_calian, text='kal')
+    dp.register_callback_query_handler(add_to_basket, Text(startswith='add_to_basket_'))
+    # dp.register_callback_query_handler(set_number, Text(startswith='number_'))
+    dp.register_callback_query_handler(clear_basket, text='clear_basket')

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="dataSourceStorageLocal" created-in="PY-231.9011.38">
-    <data-source name="provance@localhost" uuid="239ddf54-0f90-44e6-8535-26916d3d705d">
-      <database-info product="PostgreSQL" version="14.8 (Homebrew)" jdbc-version="4.2" driver-name="PostgreSQL JDBC Driver" driver-version="42.6.0" dbms="POSTGRES" exact-version="14.8" exact-driver-version="42.6">
+    <data-source name="@localhost" uuid="239ddf54-0f90-44e6-8535-26916d3d705d">
+      <database-info product="PostgreSQL" version="15.2" jdbc-version="4.2" driver-name="PostgreSQL JDBC Driver" driver-version="42.5.0" dbms="POSTGRES" exact-version="15.2" exact-driver-version="42.5">
         <identifier-quote-string>&quot;</identifier-quote-string>
       </database-info>
       <case-sensitivity plain-identifiers="lower" quoted-identifiers="exact" />
       <secret-storage>master_key</secret-storage>
-      <user-name>patrick</user-name>
+      <user-name>postgres</user-name>
       <schema-mapping>
         <introspection-scope>
           <node negative="1">
@@ -27,8 +27,38 @@
         </introspection-scope>
       </schema-mapping>
     </data-source>
-    <data-source name="postgres@45.83.192.126" uuid="8b6af62c-f77f-4c1a-a615-5dcba959dcd2">
-      <database-info product="PostgreSQL" version="14.8 (Debian 14.8-1.pgdg110+1)" jdbc-version="4.2" driver-name="PostgreSQL JDBC Driver" driver-version="42.6.0" dbms="POSTGRES" exact-version="14.8" exact-driver-version="42.6">
+    <data-source name="postgres@45.83.192.126" uuid="c7647e53-7176-4031-88df-67a2f3e39bd0">
+      <database-info product="PostgreSQL" version="14.8 (Debian 14.8-1.pgdg110+1)" jdbc-version="4.2" driver-name="PostgreSQL JDBC Driver" driver-version="42.5.0" dbms="POSTGRES" exact-version="14.8" exact-driver-version="42.5">
+        <identifier-quote-string>&quot;</identifier-quote-string>
+      </database-info>
+      <case-sensitivity plain-identifiers="lower" quoted-identifiers="exact" />
+      <secret-storage>master_key</secret-storage>
+      <user-name>patrick</user-name>
+      <schema-mapping>
+        <introspection-scope>
+          <node kind="database" qname="postgres">
+            <node kind="schema" qname="public" />
+          </node>
+        </introspection-scope>
+      </schema-mapping>
+    </data-source>
+    <data-source name="mainProvanceHost" uuid="246aa490-f6b2-4cc3-9ec5-e0af19783e2f">
+      <database-info product="PostgreSQL" version="14.8 (Debian 14.8-1.pgdg110+1)" jdbc-version="4.2" driver-name="PostgreSQL JDBC Driver" driver-version="42.5.0" dbms="POSTGRES" exact-version="14.8" exact-driver-version="42.5">
+        <identifier-quote-string>&quot;</identifier-quote-string>
+      </database-info>
+      <case-sensitivity plain-identifiers="lower" quoted-identifiers="exact" />
+      <secret-storage>master_key</secret-storage>
+      <user-name>postgres</user-name>
+      <schema-mapping>
+        <introspection-scope>
+          <node kind="database" qname="provance">
+            <node kind="schema" qname="public" />
+          </node>
+        </introspection-scope>
+      </schema-mapping>
+    </data-source>
+    <data-source name="postgres@localhost" uuid="2c7fcf42-4773-433b-ad21-52a2b4d933e6">
+      <database-info product="PostgreSQL" version="14.8 (Homebrew)" jdbc-version="4.2" driver-name="PostgreSQL JDBC Driver" driver-version="42.6.0" dbms="POSTGRES" exact-version="14.8" exact-driver-version="42.6">
         <identifier-quote-string>&quot;</identifier-quote-string>
       </database-info>
       <case-sensitivity plain-identifiers="lower" quoted-identifiers="exact" />
