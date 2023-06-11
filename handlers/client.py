@@ -252,7 +252,7 @@ async def add_to_basket(call: types.CallbackQuery):
 async def open_basket(call: types.CallbackQuery):
     await call.message.delete()
     basket=await postgres_db.get_basket(call.from_user.id)
-
+    total_amount=0
     if basket==None:
         await bot.send_message(call.message.chat.id, 'Кошик пустий 🛒', reply_markup=kb.ikb_client_back_to_main_menu())
     else:
@@ -263,14 +263,26 @@ async def open_basket(call: types.CallbackQuery):
             dish_type=key.split('_')[0]
             dish_id=key.split('_')[1]
             dish_record=await postgres_db.get_info_about_dish(utils.menu_types[dish_type],dish_id)
+            price=dish_record['price']
             dish=dish_record['dish']
-            message+=f"{dish} - {dict_basket[key]}шт.\n"
-        await bot.send_message(call.message.chat.id, message, reply_markup=kb.ikb_client_basket())
+            amount=price*dict_basket[key]
+            message+=f"{dish} ({dict_basket[key]}) - {amount} грн\n"
+            total_amount+=amount
+
+        message+=f"__________________\nЗагальна сума: {total_amount} грн"
+        await bot.send_message(call.message.chat.id, message, reply_markup=await kb.ikb_client_basket(dict_basket))
 
 async def clear_basket(call: types.CallbackQuery):
     await call.message.delete()
     await postgres_db.clear_basket(call.from_user.id)
-    await bot.send_message(call.message.chat.id, 'Кошик пустий 🛒', reply_markup=kb.ikb_client_basket())
+    await bot.send_message(call.message.chat.id, 'Кошик пустий 🛒', reply_markup=kb.ikb_client_basket1())
+
+async def drop_from_basket(call: types.CallbackQuery):
+    data=call.data.split('_')
+    dish=data[2]+'_'+data[3]
+    # dish_id=data[4]
+    await postgres_db.drop_from_basket(call.from_user.id,f"{dish}")
+    await open_basket(call)
 def register_handlers_client(dp: Dispatcher):
     dp.register_message_handler(start_command, commands=['start'])
     dp.register_callback_query_handler(wifi_command, text='wifi')
@@ -301,3 +313,4 @@ def register_handlers_client(dp: Dispatcher):
     dp.register_callback_query_handler(add_to_basket, Text(startswith='add_to_basket_'))
     # dp.register_callback_query_handler(set_number, Text(startswith='number_'))
     dp.register_callback_query_handler(clear_basket, text='clear_basket')
+    dp.register_callback_query_handler(drop_from_basket, Text(startswith='basket_delete_'))

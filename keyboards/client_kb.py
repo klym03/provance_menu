@@ -36,11 +36,25 @@ def ikb_client_back_to_main_menu() -> InlineKeyboardMarkup:
     ikb_client.add(back)
     return ikb_client
 
-def ikb_client_basket() -> InlineKeyboardMarkup:
+async def ikb_client_basket(basket) -> InlineKeyboardMarkup:
     ikb_client = InlineKeyboardMarkup()
+    for key in basket:
+        dish_type = key.split('_')[0]
+        dish_id = key.split('_')[1]
+        dish_record = await(postgres_db.get_info_about_dish(utils.menu_types[dish_type], dish_id))
+        dish = dish_record['dish']
+        ikb_client.add(InlineKeyboardButton(text=f'{dish}', callback_data=f'basket_dish_{key}'),
+
+                       InlineKeyboardButton(text='❌', callback_data=f'basket_delete_{key}'))
     back = InlineKeyboardButton('🔙 Назад', callback_data='main_menu')
     clear= InlineKeyboardButton('Очистити корзину', callback_data='clear_basket')
-    ikb_client.row(back,clear)
+    ikb_client.add(clear)
+    ikb_client.add(back)
+    return ikb_client
+def ikb_client_basket1() -> InlineKeyboardMarkup:
+    ikb_client = InlineKeyboardMarkup()
+    back = InlineKeyboardButton('🔙 Назад', callback_data='main_menu')
+    ikb_client.row(back)
     return ikb_client
 def ikb_client_bar() -> InlineKeyboardMarkup:
     ikb_client_bar = InlineKeyboardMarkup(row_width=1)

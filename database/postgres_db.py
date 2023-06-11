@@ -241,3 +241,20 @@ async def clear_basket(user_id: int):
         "UPDATE users SET basket = $1 WHERE user_id = $2",
         None, user_id
     )
+async def drop_from_basket(user_id: int, dish):
+    current_basket=await pool.fetchval(
+        "SELECT basket FROM users WHERE user_id = $1",
+        user_id
+    )
+    current_basket=json.loads(current_basket)
+    current_basket.pop(dish)
+    if len(current_basket)==0:
+        await pool.execute(
+            "UPDATE users SET basket = $1 WHERE user_id = $2",
+            None, user_id
+        )
+    else:
+        await pool.execute(
+            "UPDATE users SET basket = $1 WHERE user_id = $2",
+            json.dumps(current_basket), user_id
+        )
