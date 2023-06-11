@@ -8,6 +8,7 @@ async def on_startup(_):
     print('bot is online')
     await db_table.start_db()
     await postgres_db.connect_db()
+    await postgres_db.create_user_table()
 
 
 client.register_handlers_client(dp)

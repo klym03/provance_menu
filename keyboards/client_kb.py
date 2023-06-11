@@ -16,17 +16,46 @@ def ikb_client_main_menu() -> InlineKeyboardMarkup:
     wifi = InlineKeyboardButton(text='📟 Wi-Fi', callback_data='wifi')
     loct = InlineKeyboardButton(text='📍 Локація', callback_data='location')
     cont = InlineKeyboardButton(text='📞 Контакти', callback_data='contacts')
-    ikb_client_main_menu.add(menu, bar,kal, wifi, loct, cont)
+    basket = InlineKeyboardButton(text='🛒 Замовлення', callback_data='basket')
+    ikb_client_main_menu.add(menu, bar,basket,kal, wifi, loct, cont)
     return ikb_client_main_menu
 
-
+def ikb_client_basket(dish_list,price) -> InlineKeyboardMarkup:
+    ikb_client_basket = InlineKeyboardMarkup(row_width=2)
+    basket_clear = InlineKeyboardButton(text='Очистити замовлення', callback_data='basket_clear')
+    for dish in dish_list:
+        basket_dish = InlineKeyboardButton(text=f'{dish}', callback_data=f'basket_dish_{dish}')
+        basket_price= InlineKeyboardButton(text=f'{price}', callback_data=f'basket_price_{price}')
+        ikb_client_basket.add(basket_dish,basket_price)
+    back= InlineKeyboardButton('🔙 Назад', callback_data='main_menu')
+    ikb_client_basket.add(basket_clear, back)
+    return ikb_client_basket
 def ikb_client_back_to_main_menu() -> InlineKeyboardMarkup:
     ikb_client = InlineKeyboardMarkup()
     back = InlineKeyboardButton('🔙 Назад', callback_data='main_menu')
     ikb_client.add(back)
     return ikb_client
 
+async def ikb_client_basket(basket) -> InlineKeyboardMarkup:
+    ikb_client = InlineKeyboardMarkup()
+    for key in basket:
+        dish_type = key.split('_')[0]
+        dish_id = key.split('_')[1]
+        dish_record = await(postgres_db.get_info_about_dish(utils.menu_types[dish_type], dish_id))
+        dish = dish_record['dish']
+        ikb_client.add(InlineKeyboardButton(text=f'{dish}', callback_data=f'basket_dish_{key}'),
 
+                       InlineKeyboardButton(text='❌', callback_data=f'basket_delete_{key}'))
+    back = InlineKeyboardButton('🔙 Назад', callback_data='main_menu')
+    clear= InlineKeyboardButton('Очистити замовлення', callback_data='clear_basket')
+    ikb_client.add(clear)
+    ikb_client.add(back)
+    return ikb_client
+def ikb_client_basket1() -> InlineKeyboardMarkup:
+    ikb_client = InlineKeyboardMarkup()
+    back = InlineKeyboardButton('🔙 Назад', callback_data='main_menu')
+    ikb_client.row(back)
+    return ikb_client
 def ikb_client_bar() -> InlineKeyboardMarkup:
     ikb_client_bar = InlineKeyboardMarkup(row_width=1)
     alcohol = InlineKeyboardButton(text='Алкогольні напої 🍷', callback_data='alcohol')
@@ -53,8 +82,8 @@ async def ikb_client_sushi_type(type: str) -> InlineKeyboardMarkup:
     sushi = await postgres_db.get_sushi()
     for dish in sushi:
         if dish['type'] == type:
-            sets = InlineKeyboardButton(text=f"{dish['dish']} 🍣", callback_data=f"info_about_sushi_{dish['id']}")
-            sushi_price= InlineKeyboardButton(text=f"{dish['price']} грн", callback_data=f"info_about_sushi_{dish['id']}")
+            sets = InlineKeyboardButton(text=f"{dish['dish']} 🍣", callback_data=f"info_about_sushi_{dish['id']}_1")
+            sushi_price= InlineKeyboardButton(text=f"{dish['price']} грн", callback_data=f"info_about_sushi_{dish['id']}_1")
             ikb_client_sushi_sets.add(sets, sushi_price)
     back = InlineKeyboardButton('🔙 Назад', callback_data='sushi')
     ikb_client_sushi_sets.add(back)
@@ -65,8 +94,8 @@ async def ikb_client_pizza() -> InlineKeyboardMarkup:
     ikb_client_pizza = InlineKeyboardMarkup(row_width=2)
     pizza = await postgres_db.get_pizza()
     for dish in pizza:
-        pizza_button = InlineKeyboardButton(text=dish['dish'], callback_data=f"info_about_pizza_{dish['id']}")
-        prive_pizza = InlineKeyboardButton(text=f"{dish['price']} грн", callback_data=f"info_about_pizza_{dish['id']}")
+        pizza_button = InlineKeyboardButton(text=dish['dish'], callback_data=f"info_about_pizza_{dish['id']}_1")
+        prive_pizza = InlineKeyboardButton(text=f"{dish['price']} грн", callback_data=f"info_about_pizza_{dish['id']}_1")
         ikb_client_pizza.add(pizza_button, prive_pizza)
     back = InlineKeyboardButton('🔙 Назад', callback_data='menu')
     ikb_client_pizza.add(back)
@@ -78,8 +107,8 @@ async def ikb_client_salats() -> InlineKeyboardMarkup:
     ikb_client_salats = InlineKeyboardMarkup(row_width=2)
     salats = await postgres_db.get_salats()
     for dish in salats:
-        salats_button = InlineKeyboardButton(text=f"{dish['dish']} 🥙", callback_data=f"info_about_salats_{dish['id']}")
-        salats_price = InlineKeyboardButton(text=f"{dish['price']} грн", callback_data=f"info_about_salats_{dish['id']}")
+        salats_button = InlineKeyboardButton(text=f"{dish['dish']} 🥙", callback_data=f"info_about_salats_{dish['id']}_1")
+        salats_price = InlineKeyboardButton(text=f"{dish['price']} грн", callback_data=f"info_about_salats_{dish['id']}_1")
         ikb_client_salats.add(salats_button, salats_price)
     back = InlineKeyboardButton('🔙 Назад', callback_data='menu')
     ikb_client_salats.add(back)
@@ -90,8 +119,8 @@ async def ikb_client_first_dish() -> InlineKeyboardMarkup:
     ikb_client_first_dish = InlineKeyboardMarkup(row_width=2)
     first_dish = await postgres_db.get_first_dish()
     for dish in first_dish:
-        first_dish_button = InlineKeyboardButton(text=f"{dish['dish']} 🍲", callback_data=f"info_about_firstDish_{dish['id']}")
-        first_dish_price = InlineKeyboardButton(text=f"{dish['price']} грн", callback_data=f"info_about_firstDish_{dish['id']}")
+        first_dish_button = InlineKeyboardButton(text=f"{dish['dish']} 🍲", callback_data=f"info_about_firstDish_{dish['id']}_1")
+        first_dish_price = InlineKeyboardButton(text=f"{dish['price']} грн", callback_data=f"info_about_firstDish_{dish['id']}_1")
         ikb_client_first_dish.add(first_dish_button,first_dish_price)
     back = InlineKeyboardButton('🔙 Назад', callback_data='menu')
     ikb_client_first_dish.add(back)
@@ -116,8 +145,8 @@ async def ikb_client_second_dish(type: str) -> InlineKeyboardMarkup:
     for dish in second_dish:
         if dish['type'] == type:
             second_dish_button = InlineKeyboardButton(text=f"{dish['dish']} 🍝",
-                                                      callback_data=f'info_about_secondDish_{dish["id"]}')
-            second_dish_price = InlineKeyboardButton(text=f"{dish['price']} грн",callback_data=f"info_about_secondDish_{dish['id']}")
+                                                      callback_data=f'info_about_secondDish_{dish["id"]}_1')
+            second_dish_price = InlineKeyboardButton(text=f"{dish['price']} грн",callback_data=f"info_about_secondDish_{dish['id']}_1")
             ikb_client_second_dish.add(second_dish_button, second_dish_price)
     back = InlineKeyboardButton('🔙 Назад', callback_data='secondDish')
     ikb_client_second_dish.add(back)
@@ -128,8 +157,8 @@ async def ikb_client_deserts() -> InlineKeyboardMarkup:
     ikb_client_deserts = InlineKeyboardMarkup(row_width=2)
     desetrs = await postgres_db.get_deserts()
     for dish in desetrs:
-        deserts_button = InlineKeyboardButton(text=f"{dish['dish']} 🍮", callback_data=f"info_about_deserts_{dish['id']}")
-        deserts_price = InlineKeyboardButton(text=f"{dish['price']} грн", callback_data=f"info_about_deserts_{dish['id']}")
+        deserts_button = InlineKeyboardButton(text=f"{dish['dish']} 🍮", callback_data=f"info_about_deserts_{dish['id']}_1")
+        deserts_price = InlineKeyboardButton(text=f"{dish['price']} грн", callback_data=f"info_about_deserts_{dish['id']}_1")
         ikb_client_deserts.add(deserts_button, deserts_price)
     back = InlineKeyboardButton('🔙 Назад', callback_data='menu')
     ikb_client_deserts.add(back)
@@ -141,8 +170,8 @@ async def ikb_client_cold_snacks() -> InlineKeyboardMarkup:
     cold_snacks = await postgres_db.get_cold_snacks()
     for dish in cold_snacks:
         cold_snecks_button = InlineKeyboardButton(text=f"{dish['dish']} 🫒",
-                                                  callback_data=f"info_about_coldSnacks_{dish['id']}")
-        cold_snacks_price = InlineKeyboardButton(text=f"{dish['price']} грн", callback_data=f"info_about_coldSnacks_{dish['id']}")
+                                                  callback_data=f"info_about_coldSnacks_{dish['id']}_1")
+        cold_snacks_price = InlineKeyboardButton(text=f"{dish['price']} грн", callback_data=f"info_about_coldSnacks_{dish['id']}_1")
         ikb_client_cold_snacks.add(cold_snecks_button, cold_snacks_price)
     back = InlineKeyboardButton('🔙 Назад', callback_data='menu')
     ikb_client_cold_snacks.add(back)
@@ -155,8 +184,8 @@ async def ikb_client_warm_snacks() -> InlineKeyboardMarkup:
     warm_snacks = await postgres_db.get_warm_snacks()
     for dish in warm_snacks:
         warm_snecks_button = InlineKeyboardButton(text=f"{dish['dish']} 🥓",
-                                                  callback_data=f"info_about_warmSnacks_{dish['id']}")
-        warm_snacks_price = InlineKeyboardButton(text=f"{dish['price']} грн", callback_data=f"info_about_warmSnacks_{dish['id']}")
+                                                  callback_data=f"info_about_warmSnacks_{dish['id']}_1")
+        warm_snacks_price = InlineKeyboardButton(text=f"{dish['price']} грн", callback_data=f"info_about_warmSnacks_{dish['id']}_1")
         ikb_client_warm_snacks.add(warm_snecks_button, warm_snacks_price)
     back = InlineKeyboardButton('🔙 Назад', callback_data='menu')
     ikb_client_warm_snacks.add(back)
@@ -167,8 +196,8 @@ async def ikb_client_drinks() -> InlineKeyboardMarkup:
     ikb_client_drinks = InlineKeyboardMarkup(row_width=2)
     drinks = await postgres_db.get_drinks()
     for dish in drinks:
-        drink_button = InlineKeyboardButton(text=f"{dish['dish']} 🥤", callback_data=f"info_about_drinks_{dish['id']}")
-        drinks_price = InlineKeyboardButton(text=f"{dish['price']} грн", callback_data=f"info_about_drinks_{dish['id']}")
+        drink_button = InlineKeyboardButton(text=f"{dish['dish']} 🥤", callback_data=f"info_about_drinks_{dish['id']}_1")
+        drinks_price = InlineKeyboardButton(text=f"{dish['price']} грн", callback_data=f"info_about_drinks_{dish['id']}_1")
         ikb_client_drinks.add(drink_button, drinks_price)
     back = InlineKeyboardButton('🔙 Назад', callback_data='menu')
     ikb_client_drinks.add(back)
@@ -179,8 +208,8 @@ async def ikb_client_drinks_bar() -> InlineKeyboardMarkup:
     ikb_client_drinks_bar = InlineKeyboardMarkup(row_width=2)
     drinks = await postgres_db.get_drinks()
     for dish in drinks:
-        drink_button = InlineKeyboardButton(text=f"{dish['dish']} 🥤", callback_data=f"info_about_drinks_{dish['id']}")
-        drinks_price = InlineKeyboardButton(text=f"{dish['price']} грн", callback_data=f"info_about_drinks_{dish['id']}")
+        drink_button = InlineKeyboardButton(text=f"{dish['dish']} 🥤", callback_data=f"info_about_drinks_{dish['id']}_1")
+        drinks_price = InlineKeyboardButton(text=f"{dish['price']} грн", callback_data=f"info_about_drinks_{dish['id']}_1")
         ikb_client_drinks_bar.add(drink_button, drinks_price)
     back = InlineKeyboardButton('🔙 Назад', callback_data='bar')
     ikb_client_drinks_bar.add(back)
@@ -192,8 +221,8 @@ async def ikb_client_coctails_type(type: str) -> InlineKeyboardMarkup:
     coctails = await postgres_db.get_cocktails()
     for dish in coctails:
         if dish['type'] == type:
-            coctails_button = InlineKeyboardButton(text=f"{dish['dish']} 🍸", callback_data=f"info_about_coctails_{dish['id']}")
-            coctails_price = InlineKeyboardButton(text=f"{dish['price']} грн", callback_data=f"info_about_coctails_{dish['id']}")
+            coctails_button = InlineKeyboardButton(text=f"{dish['dish']} 🍸", callback_data=f"info_about_coctails_{dish['id']}_1")
+            coctails_price = InlineKeyboardButton(text=f"{dish['price']} грн", callback_data=f"info_about_coctails_{dish['id']}_1")
             ikb_client_coctails.add(coctails_button, coctails_price)
     back = InlineKeyboardButton('🔙 Назад', callback_data='coctails')
     ikb_client_coctails.add(back)
@@ -216,8 +245,8 @@ async def ikb_client_alcohol_type(type: str) -> InlineKeyboardMarkup:
     alcohol = await postgres_db.get_alcohol()
     for dish in alcohol:
         if dish['type'] == type:
-            alcohol_button = InlineKeyboardButton(text=f"{dish['dish']} 🥃", callback_data=f"info_about_alcohol_{dish['id']}")
-            alcohol_price = InlineKeyboardButton(text=f"{dish['price']} грн", callback_data=f"info_about_alcohol_{dish['id']}")
+            alcohol_button = InlineKeyboardButton(text=f"{dish['dish']} 🥃", callback_data=f"info_about_alcohol_{dish['id']}_1")
+            alcohol_price = InlineKeyboardButton(text=f"{dish['price']} грн", callback_data=f"info_about_alcohol_{dish['id']}_1")
             ikb_client_alcohol.add(alcohol_button, alcohol_price)
     back = InlineKeyboardButton('🔙 Назад', callback_data='alcohol')
     ikb_client_alcohol.add(back)
@@ -246,13 +275,25 @@ async def ikb_client_alcohol() -> InlineKeyboardMarkup:
     return ikb_client_alcohol_type
 
 
-async def ikb_client_back_to_choice(type, second_type) -> InlineKeyboardMarkup:
+async def ikb_client_back_to_choice(type, second_type,dish_id,number) -> InlineKeyboardMarkup:
     ikb_client_back_to_choice = InlineKeyboardMarkup(row_width=1)
+    number = int(number)
     if second_type != None:
         back = InlineKeyboardButton('🔙 Назад', callback_data=f"open_{type}_{second_type}")
     else:
         back = InlineKeyboardButton('🔙 Назад', callback_data=type)
-    ikb_client_back_to_choice.add(back)
+    if number > 1:
+        plus = InlineKeyboardButton(text='+', callback_data=f"info_about_{type}_{dish_id}_{number + 1}")
+        minus = InlineKeyboardButton(text='-', callback_data=f"info_about_{type}_{dish_id}_{number - 1}")
+    else:
+        plus = InlineKeyboardButton(text='+', callback_data=f"info_about_{type}_{dish_id}_{number + 1}")
+        minus = InlineKeyboardButton(text='-', callback_data=f"info_about_{type}_{dish_id}_{number}")
+
+    numbers=InlineKeyboardButton(text=f"{number}", callback_data="f")
+    add_to_basket = InlineKeyboardButton(text='🛒 Додати в замовлення', callback_data=f"add_to_basket_{type}_{dish_id}_{number}")
+    maket= InlineKeyboardButton(text='Виберіть кільіксть', callback_data="o")
+    ikb_client_back_to_choice.add(maket).row(minus,numbers,plus).add(add_to_basket,back)
+    # ikb_client_back_to_choice.add(add_to_basket,back).row(minus,numbers,plus)
     return ikb_client_back_to_choice
 
 
