@@ -247,7 +247,7 @@ async def add_to_basket(call: types.CallbackQuery):
     basket_dict={}
     basket_dict[f"{type}_{dish_id}"]=int(number)
     await postgres_db.add_to_basket(call.from_user.id,basket_dict)
-    await bot.answer_callback_query(call.id, 'Додано до кошика', show_alert=True)
+    await bot.answer_callback_query(call.id, 'Додано до замовлення', show_alert=True)
 
 async def open_basket(call: types.CallbackQuery):
     await call.message.delete()
@@ -269,7 +269,7 @@ async def open_basket(call: types.CallbackQuery):
             message+=f"{dish} ({dict_basket[key]}) - {amount} грн\n"
             total_amount+=amount
 
-        message+=f"__________________\nЗагальна сума: {total_amount} грн"
+        message+=f"_________________________\nЗагальна сума: {total_amount} грн"
         await bot.send_message(call.message.chat.id, message, reply_markup=await kb.ikb_client_basket(dict_basket))
 
 async def clear_basket(call: types.CallbackQuery):
