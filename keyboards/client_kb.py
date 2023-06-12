@@ -291,7 +291,7 @@ async def ikb_client_back_to_choice(type, second_type,dish_id,number) -> InlineK
 
     numbers=InlineKeyboardButton(text=f"{number}", callback_data="f")
     add_to_basket = InlineKeyboardButton(text='🛒 Додати в замовлення', callback_data=f"add_to_basket_{type}_{dish_id}_{number}")
-    maket= InlineKeyboardButton(text='Виберіть кільіксть', callback_data="o")
+    maket= InlineKeyboardButton(text='Виберіть кількість', callback_data="o")
     ikb_client_back_to_choice.add(maket).row(minus,numbers,plus).add(add_to_basket,back)
     # ikb_client_back_to_choice.add(add_to_basket,back).row(minus,numbers,plus)
     return ikb_client_back_to_choice
