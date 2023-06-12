@@ -860,146 +860,160 @@ menu_salats = [
     }
 ]
 menu_second_dish = [
-    {
-        "dish": "Відбивна по-французьки (з цибулькою та сиром)",
-        "weight": 155,
-        "price": 90,
-        "type": "pig",
-        "id": 1
-    },
-    {
-        "dish": "Піджарка зі свинини з овочами",
-        "weight": 225,
-        "price": 90,
-        "type": "pig",
-        "id": 2
-    },
-    {
-        "dish": "Свинний стейк на кістці(на вагу)",
-        "weight": 100,
-        "price": 75,
-        "type": "pig",
-        "id": 3
-    },
-    {
-        "dish": "Телятина з баклажанами",
-        "weight": 320,
-        "price": 130,
-        "type": "bif",
-        "id": 4
-    },
-    {
-        "dish": "Котлета по-київськи",
-        "weight": 150,
-        "price": 100,
-        "type": "chiken",
-        "id": 5
-    },
-    {
-        "dish": "Відбивна куряча",
-        "weight": 125,
-        "price": 60,
-        "type": "chiken",
-        "id": 6
-    },
-    {
-        "dish": "Філе телапії з овочами",
-        "weight": 200,
-        "price": 115,
-        "type": "fish",
-        "id": 7
-    },
-    {
-        "dish": "Філе коропа запечене з цибулею та кропом(на вагу)",
-        "weight": 100,
-        "price": 80,
-        "type": "fish",
-        "id": 8
-    },
-    {
-        "dish": "Філе лосося з овочами",
-        "weight": 150,
-        "price": 160,
-        "type": "fish",
-        "id": 9
-    },
-    {
-        "dish": "Спагетті болоньєзе",
-        "weight": 250,
-        "price": 70,
-        "type": "pasta",
-        "id": 15
-    },
-    {
-        "dish": "Фарфале з куркою та грибами",
-        "weight": 250,
-        "price": 85,
-        "type": "pasta",
-        "id": 16
-    },
-    {
-        "dish": "Тальятелла з тунцем",
-        "weight": 250,
-        "price": 90,
-        "type": "pasta",
-        "id": 17
-    },
-    {
-        "dish": "Стейк свинний на кістці",
-        "weight": 1000,
-        "price": 750,
-        "type": "mangal",
-        "id": 18
-    },
-    {
-        "dish": "Шашлик зі свинини",
-        "weight": 1000,
-        "price": 750,
-        "type": "mangal",
-        "id": 19
-    },
-    {
-        "dish": "Свинні реберця",
-        "weight": 1000,
-        "price": 450,
-        "type": "mangal",
-        "id": 20
-    },
-    {
-        "dish": "Картопля по-селянськи",
-        "weight": 220,
-        "price": 55,
-        "type": "sideDishes",
-        "id": 10
-    },
-    {
-        "dish": "Картопля по домашньому",
-        "weight": 200,
-        "price": 50,
-        "type": "sideDishes",
-        "id": 12
-    },
-    {
-        "dish": "Картопляне пюре",
-        "weight": 150,
-        "price": 50,
-        "type": "sideDishes",
-        "id": 13
-    },
-    {
-        "dish": "Рис різотто з овочами",
-        "weight": 140,
-        "price": 50,
-        "type": "sideDishes",
-        "id": 14
-    },
-    {
-        "dish": "Картопля фрі",
-        "weight": 150,
-        "price": 55,
-        "type": "sideDishes",
-        "id": 11
-    }
+  {
+    "id": 1,
+    "dish": "Відбивна по-французьки (з цибулькою та сиром)",
+    "weight": 155,
+    "price": 90,
+    "type": "pig"
+  },
+  {
+    "id": 2,
+    "dish": "Піджарка зі свинини з овочами",
+    "weight": 225,
+    "price": 90,
+    "type": "pig"
+  },
+  {
+    "id": 3,
+    "dish": "Свинний стейк на кістці(на вагу)",
+    "weight": 100,
+    "price": 75,
+    "type": "pig"
+  },
+  {
+    "id": 4,
+    "dish": "Телятина з баклажанами",
+    "weight": 320,
+    "price": 130,
+    "type": "bif"
+  },
+  {
+    "id": 5,
+    "dish": "Котлета по-київськи",
+    "weight": 150,
+    "price": 100,
+    "type": "chiken"
+  },
+  {
+    "id": 6,
+    "dish": "Відбивна куряча",
+    "weight": 125,
+    "price": 60,
+    "type": "chiken"
+  },
+  {
+    "id": 7,
+    "dish": "Філе телапії з овочами",
+    "weight": 200,
+    "price": 115,
+    "type": "fish"
+  },
+  {
+    "id": 8,
+    "dish": "Філе коропа запечене з цибулею та кропом(на вагу)",
+    "weight": 100,
+    "price": 80,
+    "type": "fish"
+  },
+  {
+    "id": 9,
+    "dish": "Філе лосося з овочами",
+    "weight": 150,
+    "price": 160,
+    "type": "fish"
+  },
+  {
+    "id": 10,
+    "dish": "Спагетті болоньєзе",
+    "weight": 250,
+    "price": 70,
+    "type": "pasta"
+  },
+  {
+    "id": 11,
+    "dish": "Фарфале з куркою та грибами",
+    "weight": 250,
+    "price": 85,
+    "type": "pasta"
+  },
+  {
+    "id": 12,
+    "dish": "Тальятелла з тунцем",
+    "weight": 250,
+    "price": 90,
+    "type": "pasta"
+  },
+  {
+    "id": 13,
+    "dish": "Стейк свинний на кістці",
+    "weight": 1000,
+    "price": 750,
+    "type": "mangal"
+  },
+  {
+    "id": 14,
+    "dish": "Шашлик зі свинини",
+    "weight": 1000,
+    "price": 750,
+    "type": "mangal"
+  },
+  {
+    "id": 15,
+    "dish": "Свинні реберця",
+    "weight": 1000,
+    "price": 450,
+    "type": "mangal"
+  },
+  {
+    "id": 16,
+    "dish": "Картопля по-селянськи",
+    "weight": 220,
+    "price": 55,
+    "type": "sideDishes"
+  },
+  {
+    "id": 17,
+    "dish": "Картопля по домашньому",
+    "weight": 200,
+    "price": 50,
+    "type": "sideDishes"
+  },
+  {
+    "id": 18,
+    "dish": "Картопляне пюре",
+    "weight": 150,
+    "price": 50,
+    "type": "sideDishes"
+  },
+  {
+    "id": 19,
+    "dish": "Рис різотто з овочами",
+    "weight": 140,
+    "price": 50,
+    "type": "sideDishes"
+  },
+  {
+    "id": 20,
+    "dish": "Картопля фрі",
+    "weight": 150,
+    "price": 55,
+    "type": "sideDishes"
+  },
+  {
+    "id": 21,
+    "dish": "Деруни",
+    "weight": 200,
+    "price": 80,
+    "type": "potato"
+  },
+  {
+    "id": 22,
+    "dish": "Деруни з мʼясом +соус",
+    "weight": 200,
+    "price": 100,
+    "type": "potato"
+  }
 ]
 menu_sushi = [
     {

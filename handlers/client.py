@@ -14,7 +14,6 @@ async def start_command(message: types.Message):
 
 
 async def start_menu(message: types.Message):
-<<<<<<< HEAD
     user_id = message.chat.id
     user= await postgres_db.get_user(user_id)
     if user_id>0:
@@ -29,7 +28,6 @@ async def start_menu(message: types.Message):
 
 async def main_menu(call: types.CallbackQuery):
     await bot.delete_message(call.message.chat.id, call.message.message_id)
-=======
     with open('images/mainBanner.jpg', 'rb') as photo:
         await bot.send_photo(message.chat.id, photo,
                              caption='Вітаємо! 👋🏽\nЦе помічник нашого закладу 👩🏽‍🍳\n\nБажаєте переглянути меню нашого закладу та актуальну інформацію? Тоді тисніть на одну з кнопок 👇🏽',
@@ -38,7 +36,6 @@ async def main_menu(call: types.CallbackQuery):
 
 async def main_menu(call: types.CallbackQuery):
     await call.message.delete()
->>>>>>> main
     await start_menu(call.message)
 async def open_calian(call: types.CallbackQuery):
     await call.message.delete()
