@@ -22,7 +22,9 @@ dict_types = {
     'cognac': 'Коньяк',
     'whiskey': 'Віскі',
     'likers': 'Лікери',
-    'shamp': 'Шампанське'
+    'shamp': 'Шампанське',
+    'potato': 'Страви з картоплі',
+
 }
 menu_types = {
     'pizza': 'menu_pizza',
