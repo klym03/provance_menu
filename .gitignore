@@ -163,3 +163,9 @@ cython_debug/
 !/.env
 !/.env
 /.env
+/.idea/dataSources/239ddf54-0f90-44e6-8535-26916d3d705d/storage_v2/_src_/database/casino.9Yt8rg.meta
+/.idea/dataSources/239ddf54-0f90-44e6-8535-26916d3d705d/storage_v2/_src_/database/casino.9Yt8rg/schema/information_schema.FNRwLQ.meta
+/.idea/dataSources/239ddf54-0f90-44e6-8535-26916d3d705d/storage_v2/_src_/database/studhelp.8f_Sbw/schema/information_schema.FNRwLQ.meta
+/.idea/dataSources/239ddf54-0f90-44e6-8535-26916d3d705d/storage_v2/_src_/database/casino.9Yt8rg/schema/pg_catalog.0S1ZNQ.meta
+/.idea/dataSources/239ddf54-0f90-44e6-8535-26916d3d705d/storage_v2/_src_/database/studhelp.8f_Sbw/schema/pg_catalog.0S1ZNQ.meta
+/.idea/dataSources/239ddf54-0f90-44e6-8535-26916d3d705d/storage_v2/_src_/database/studhelp.8f_Sbw.meta

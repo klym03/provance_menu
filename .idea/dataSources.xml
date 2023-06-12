@@ -20,6 +20,7 @@
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://86.38.156.92:5436/provance</jdbc-url>
+<<<<<<< HEAD
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
     <data-source source="LOCAL" name="postgres@localhost" uuid="2c7fcf42-4773-433b-ad21-52a2b4d933e6">
@@ -27,6 +28,8 @@
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://localhost:5432/postgres</jdbc-url>
+=======
+>>>>>>> main
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>
