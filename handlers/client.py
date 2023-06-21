@@ -4,10 +4,8 @@ from aiogram.types import message
 import json
 import utils
 from database import postgres_db
-
 from create_bot import bot
 import keyboards.client_kb as kb
-
 
 async def start_command(message: types.Message):
     await start_menu(message)
@@ -284,7 +282,6 @@ async def clear_basket(call: types.CallbackQuery):
     await call.message.delete()
     await postgres_db.clear_basket(call.from_user.id)
     await bot.send_message(call.message.chat.id, 'Кошик пустий 🛒', reply_markup=kb.ikb_client_basket1())
-
 async def drop_from_basket(call: types.CallbackQuery):
     data=call.data.split('_')
     dish=data[2]+'_'+data[3]
