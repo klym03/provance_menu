@@ -169,7 +169,12 @@ async def open_drinks(call: types.CallbackQuery):
                              caption='Оберіть напій 🥤',
                              reply_markup=await kb.ikb_client_drinks())
 
-
+async def open_hot_drinks(call: types.CallbackQuery):
+    await call.message.delete()
+    with open('images/hotDrinks_baner.jpg', 'rb') as photo:
+        await bot.send_photo(call.message.chat.id, photo,
+                             caption='Оберіть напій 🥤',
+                             reply_markup=await kb.ikb_client_hot_drinks())
 async def open_drinks_bar(call: types.CallbackQuery):
     await call.message.delete()
     with open('images/nonAlcohol_baner.jpg', 'rb') as photo:
@@ -307,6 +312,7 @@ def register_handlers_client(dp: Dispatcher):
     dp.register_callback_query_handler(open_warm_snacks, text='warmSnacks')
     dp.register_callback_query_handler(open_deserts, text='deserts')
     dp.register_callback_query_handler(open_drinks, text='drinks')
+    dp.register_callback_query_handler(open_hot_drinks, text='hotDrinks')
     dp.register_callback_query_handler(main_menu, text='main_menu')
     dp.register_callback_query_handler(open_cocktails_types, text='coctails')
     dp.register_callback_query_handler(open_cocktails, Text(startswith='open_coctails_'))

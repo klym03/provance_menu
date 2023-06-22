@@ -114,6 +114,13 @@ async def start_db() -> None:
                 price INTEGER NOT NULL
                 )
             """)
+        await pool.execute("""
+                CREATE TABLE IF NOT EXISTS menu_hot_drinks(
+                id SERIAL PRIMARY KEY,
+                dish VARCHAR(255) NOT NULL,
+                price INTEGER NOT NULL
+                )
+            """)
         p = await pool.fetch("""SELECT * FROM menu_sushi""")
         if len(p) == 0:
             for sushi in utils_db.menu_sushi:
@@ -160,6 +167,10 @@ async def start_db() -> None:
                 await pool.execute("""
                     INSERT INTO warm_snacks (dish,weight,price) VALUES ($1,$2,$3)
                 """, warm_snack['dish'], warm_snack['weight'], warm_snack['price'])
+            for hot_drink in utils_db.hot_drinks:
+                await pool.execute("""
+                    INSERT INTO hot_drinks (dish,price) VALUES ($1,$2)
+                """, hot_drink['dish'], hot_drink['price'])
         # await pool.execute("""
         #     INSERT INTO menu_sushi  VALUES ($1)
         # """,json.dumps(utils_db.menu_sushi))

@@ -214,6 +214,16 @@ async def ikb_client_drinks_bar() -> InlineKeyboardMarkup:
     back = InlineKeyboardButton('🔙 Назад', callback_data='bar')
     ikb_client_drinks_bar.add(back)
     return ikb_client_drinks_bar
+async def ikb_client_hot_drinks() -> InlineKeyboardMarkup:
+    ikb_client_hot_drinks = InlineKeyboardMarkup(row_width=2)
+    hot_drinks = await postgres_db.get_hot_drinks()
+    for dish in hot_drinks:
+        hot_drinks_button = InlineKeyboardButton(text=f"{dish['dish']} ☕️", callback_data=f"info_about_hotDrinks_{dish['id']}_1")
+        hot_drinks_price = InlineKeyboardButton(text=f"{dish['price']} грн", callback_data=f"info_about_hotDrinks_{dish['id']}_1")
+        ikb_client_hot_drinks.add(hot_drinks_button, hot_drinks_price)
+    back = InlineKeyboardButton('🔙 Назад', callback_data='menu')
+    ikb_client_hot_drinks.add(back)
+    return ikb_client_hot_drinks
 
 
 async def ikb_client_coctails_type(type: str) -> InlineKeyboardMarkup:
@@ -305,11 +315,11 @@ def ikb_client_menu() -> InlineKeyboardMarkup:
     first_dish = InlineKeyboardButton(text='Перші страви 🍲', callback_data='firstDish')
     second_dish = InlineKeyboardButton(text='Другі страви 🍗', callback_data='secondDish')
     drinks = InlineKeyboardButton(text='Напої 🧃', callback_data='drinks')
+    hot_drinks = InlineKeyboardButton(text='Гарячі напої ☕', callback_data='hotDrinks')
     deserts = InlineKeyboardButton(text='Десерти 🍰', callback_data='deserts')
     cold_snacks = InlineKeyboardButton(text='Холодні закуски 🥪', callback_data='coldSnacks')
     warm_snacks = InlineKeyboardButton(text='Гарячі закуски 🍟', callback_data='warmSnacks')
     back = InlineKeyboardButton('🔙 Назад', callback_data='main_menu')
 
-    ikb_client_menu.add(rols, pizza, cold_snacks, warm_snacks, salats, deserts, first_dish, second_dish, drinks).row(
-        back)
+    ikb_client_menu.add(rols, pizza, cold_snacks, warm_snacks, salats, deserts, first_dish, second_dish, drinks,hot_drinks).row(back)
     return ikb_client_menu

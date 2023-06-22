@@ -27,6 +27,7 @@ dict_types = {
 
 }
 menu_types = {
+    'hotDrinks': 'menu_hot_drinks',
     'pizza': 'menu_pizza',
     'salats': 'menu_salats',
     'firstDish': 'menu_first_dish',
