@@ -95,7 +95,7 @@ async def get_drinks():
 async def get_hot_drinks():
     async with pool.acquire() as connection:
         async with connection.transaction():
-            return await connection.fetch("SELECT * FROM menu_hot_drinks ")
+            return await connection.fetch("SELECT * FROM hot_drinks ")
 
 async def get_deserts():
     async with pool.acquire() as connection:

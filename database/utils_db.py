@@ -1373,7 +1373,7 @@ warm_snacks = [
         "id": 3
     }
 ]
-menu_hot_drinks = [
+hot_drinks = [
   {
     "id": 1,
     "dish": "Еспрессо",

@@ -115,7 +115,7 @@ async def start_db() -> None:
                 )
             """)
         await pool.execute("""
-                CREATE TABLE IF NOT EXISTS menu_hot_drinks(
+                CREATE TABLE IF NOT EXISTS hot_drinks(
                 id SERIAL PRIMARY KEY,
                 dish VARCHAR(255) NOT NULL,
                 price INTEGER NOT NULL
