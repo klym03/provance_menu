@@ -258,14 +258,14 @@ async def add_to_basket(call: types.CallbackQuery):
     basket_dict={}
     basket_dict[f"{type}_{dish_id}"]=int(number)
     await postgres_db.add_to_basket(call.from_user.id,basket_dict)
-    await bot.answer_callback_query(call.id, 'Додано до замовлення', show_alert=True)
+    await bot.answer_callback_query(call.id, 'Додано у вибране ⭐️', show_alert=True)
 
 async def open_basket(call: types.CallbackQuery):
     await call.message.delete()
     basket=await postgres_db.get_basket(call.from_user.id)
     total_amount=0
     if basket==None:
-        await bot.send_message(call.message.chat.id, 'Кошик пустий 🛒', reply_markup=kb.ikb_client_back_to_main_menu())
+        await bot.send_message(call.message.chat.id, 'Ви ще нічого не додали', reply_markup=kb.ikb_client_back_to_main_menu())
     else:
         dict_basket=json.loads(basket)
 
@@ -286,7 +286,7 @@ async def open_basket(call: types.CallbackQuery):
 async def clear_basket(call: types.CallbackQuery):
     await call.message.delete()
     await postgres_db.clear_basket(call.from_user.id)
-    await bot.send_message(call.message.chat.id, 'Кошик пустий 🛒', reply_markup=kb.ikb_client_basket1())
+    await bot.send_message(call.message.chat.id, 'Ви ще нічого не додали', reply_markup=kb.ikb_client_basket1())
 async def drop_from_basket(call: types.CallbackQuery):
     data=call.data.split('_')
     dish=data[2]+'_'+data[3]

@@ -16,7 +16,7 @@ def ikb_client_main_menu() -> InlineKeyboardMarkup:
     wifi = InlineKeyboardButton(text='📟 Wi-Fi', callback_data='wifi')
     loct = InlineKeyboardButton(text='📍 Локація', callback_data='location')
     cont = InlineKeyboardButton(text='📞 Контакти', callback_data='contacts')
-    basket = InlineKeyboardButton(text='🛒 Замовлення', callback_data='basket')
+    basket = InlineKeyboardButton(text='Вибране ⭐️', callback_data='basket')
     ikb_client_main_menu.add(menu, bar,basket,kal, wifi, loct, cont)
     return ikb_client_main_menu
 
@@ -47,7 +47,7 @@ async def ikb_client_basket(basket) -> InlineKeyboardMarkup:
 
                        InlineKeyboardButton(text='❌', callback_data=f'basket_delete_{key}'))
     back = InlineKeyboardButton('🔙 Назад', callback_data='main_menu')
-    clear= InlineKeyboardButton('Очистити замовлення', callback_data='clear_basket')
+    clear= InlineKeyboardButton('Очистити вибрані', callback_data='clear_basket')
     ikb_client.add(clear)
     ikb_client.add(back)
     return ikb_client
@@ -300,7 +300,7 @@ async def ikb_client_back_to_choice(type, second_type,dish_id,number) -> InlineK
         minus = InlineKeyboardButton(text='-', callback_data=f"info_about_{type}_{dish_id}_{number}")
 
     numbers=InlineKeyboardButton(text=f"{number}", callback_data="f")
-    add_to_basket = InlineKeyboardButton(text='🛒 Додати в замовлення', callback_data=f"add_to_basket_{type}_{dish_id}_{number}")
+    add_to_basket = InlineKeyboardButton(text='Додати у вибрані ⭐️', callback_data=f"add_to_basket_{type}_{dish_id}_{number}")
     maket= InlineKeyboardButton(text='Виберіть кількість', callback_data="o")
     ikb_client_back_to_choice.add(maket).row(minus,numbers,plus).add(add_to_basket,back)
     # ikb_client_back_to_choice.add(add_to_basket,back).row(minus,numbers,plus)
