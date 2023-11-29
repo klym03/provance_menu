@@ -41,7 +41,10 @@ async def open_calian(call: types.CallbackQuery):
                            reply_markup=await kb.ikb_client_calian())
 
 async def wifi_command(call: types.CallbackQuery):
-    await call.message.delete()
+    try:
+        await call.message.delete()
+    except:
+        pass
     with open('images/wifi_baner.jpg', 'rb') as photo:
         await bot.send_photo(call.message.chat.id, photo,
                              caption='📟 Назва мережі: <b>WIFI</b> \n🔑 Пароль: <code>10651124</code>',
@@ -49,13 +52,19 @@ async def wifi_command(call: types.CallbackQuery):
 
 
 async def location(call: types.CallbackQuery):
-    await call.message.delete()
+    try:
+        await call.message.delete()
+    except:
+        pass
     await bot.send_location(call.message.chat.id, 49.4113647, 24.6110042,
                             reply_markup=kb.ikb_client_back_to_main_menu())
 
 
 async def contacts(call: types.CallbackQuery):
-    await call.message.delete()
+    try:
+        await call.message.delete()
+    except:
+        pass
     with open('images/contact_baner.jpg', 'rb') as photo:
         await bot.send_photo(call.message.chat.id, photo,
                              caption='Номер телефону: +380 (96) 141 15 36',
@@ -63,7 +72,10 @@ async def contacts(call: types.CallbackQuery):
 
 
 async def open_menu(call: types.CallbackQuery):
-    await call.message.delete()
+    try:
+        await call.message.delete()
+    except:
+        pass
     with open('images/menu.jpg', 'rb') as photo:
         await bot.send_photo(call.message.chat.id, photo,
                              caption='Меню нашого закладу 🔖',
@@ -71,7 +83,10 @@ async def open_menu(call: types.CallbackQuery):
 
 
 async def open_bar_menu(call: types.CallbackQuery):
-    await call.message.delete()
+    try:
+        await call.message.delete()
+    except:
+        pass
     with open('images/main_bar_baner.jpg', 'rb') as photo:
         await bot.send_photo(call.message.chat.id, photo,
                              caption='Меню нашого закладу 🔖',
@@ -79,7 +94,10 @@ async def open_bar_menu(call: types.CallbackQuery):
 
 
 async def open_rols(call: types.CallbackQuery):
-    await call.message.delete()
+    try:
+        await call.message.delete()
+    except:
+        pass
     with open('images/sushi_baner.jpg', 'rb') as photo:
         await bot.send_photo(call.message.chat.id, photo,
                              caption='Оберіть рол 🍱',
@@ -87,7 +105,10 @@ async def open_rols(call: types.CallbackQuery):
 
 
 async def open_pizza(call: types.CallbackQuery):
-    await call.message.delete()
+    try:
+        await call.message.delete()
+    except:
+        pass
     with open('images/pizza_baner.jpg', 'rb') as photo:
         await bot.send_photo(call.message.chat.id, photo,
                              caption='Оберіть піцу 🍕',
@@ -95,7 +116,10 @@ async def open_pizza(call: types.CallbackQuery):
 
 
 async def open_salats(call: types.CallbackQuery):
-    await call.message.delete()
+    try:
+        await call.message.delete()
+    except:
+        pass
     with open('images/salats_baner.jpg', 'rb') as photo:
         await bot.send_photo(call.message.chat.id, photo,
                              caption='Оберіть салат 🥗',
@@ -103,7 +127,10 @@ async def open_salats(call: types.CallbackQuery):
 
 
 async def open_first_dish(call: types.CallbackQuery):
-    await call.message.delete()
+    try:
+        await call.message.delete()
+    except:
+        pass
     with open('images/firstDish_baner.jpg', 'rb') as photo:
         await bot.send_photo(call.message.chat.id, photo,
                              caption='Оберіть першу страву 🍲',
@@ -111,7 +138,10 @@ async def open_first_dish(call: types.CallbackQuery):
 
 
 async def open_second_dish_type(call: types.CallbackQuery):
-    await call.message.delete()
+    try:
+        await call.message.delete()
+    except:
+        pass
     with open('images/secondDish_baner.jpg', 'rb') as photo:
         await bot.send_photo(call.message.chat.id, photo,
                              caption='Оберіть другу страву 🍛',
@@ -119,7 +149,10 @@ async def open_second_dish_type(call: types.CallbackQuery):
 
 
 async def open_cold_snacks(call: types.CallbackQuery):
-    await call.message.delete()
+    try:
+        await call.message.delete()
+    except:
+        pass
     with open('images/coldSnacks_baner.jpg', 'rb') as photo:
         await bot.send_photo(call.message.chat.id, photo,
                              caption='Оберіть холодну закуску 🥪',
@@ -127,7 +160,10 @@ async def open_cold_snacks(call: types.CallbackQuery):
 
 
 async def open_warm_snacks(call: types.CallbackQuery):
-    await call.message.delete()
+    try:
+        await call.message.delete()
+    except:
+        pass
     with open('images/warmSnacks_baner.jpg', 'rb') as photo:
         await bot.send_photo(call.message.chat.id, photo,
                              caption='Оберіть гарячу закуску 🍟',
@@ -135,7 +171,10 @@ async def open_warm_snacks(call: types.CallbackQuery):
 
 
 async def open_deserts(call: types.CallbackQuery):
-    await call.message.delete()
+    try:
+        await call.message.delete()
+    except:
+        pass
     with open('images/deserts_baner.jpg', 'rb') as photo:
         await bot.send_photo(call.message.chat.id, photo,
                              caption='Оберіть десерт 🍨',
@@ -145,7 +184,10 @@ async def open_deserts(call: types.CallbackQuery):
 async def open_sushi(call: types.CallbackQuery):
     data = call.data.split('_')
     type = data[2]
-    await call.message.delete()
+    try:
+        await call.message.delete()
+    except:
+        pass
     with open('images/sushi_baner.jpg', 'rb') as photo:
         await bot.send_photo(call.message.chat.id, photo,
                              caption='Оберіть рол 🍱',
@@ -155,7 +197,10 @@ async def open_sushi(call: types.CallbackQuery):
 async def open_second_dish(call: types.CallbackQuery):
     data = call.data.split('_')
     type = data[2]
-    await call.message.delete()
+    try:
+        await call.message.delete()
+    except:
+        pass
     with open('images/secondDish_baner.jpg', 'rb') as photo:
         await bot.send_photo(call.message.chat.id, photo,
                              caption='Оберіть другу страву 🍛',
@@ -163,20 +208,29 @@ async def open_second_dish(call: types.CallbackQuery):
 
 
 async def open_drinks(call: types.CallbackQuery):
-    await call.message.delete()
+    try:
+        await call.message.delete()
+    except:
+        pass
     with open('images/drinks_baner.jpg', 'rb') as photo:
         await bot.send_photo(call.message.chat.id, photo,
                              caption='Оберіть напій 🥤',
                              reply_markup=await kb.ikb_client_drinks())
 
 async def open_hot_drinks(call: types.CallbackQuery):
-    await call.message.delete()
+    try:
+        await call.message.delete()
+    except:
+        pass
     with open('images/hotDrinks_baner.jpg', 'rb') as photo:
         await bot.send_photo(call.message.chat.id, photo,
                              caption='Оберіть напій 🥤',
                              reply_markup=await kb.ikb_client_hot_drinks())
 async def open_drinks_bar(call: types.CallbackQuery):
-    await call.message.delete()
+    try:
+        await call.message.delete()
+    except:
+        pass
     with open('images/nonAlcohol_baner.jpg', 'rb') as photo:
         await bot.send_photo(call.message.chat.id, photo,
                              caption='Оберіть напій 🥤',
@@ -184,7 +238,10 @@ async def open_drinks_bar(call: types.CallbackQuery):
 
 
 async def open_cocktails_types(call: types.CallbackQuery):
-    await call.message.delete()
+    try:
+        await call.message.delete()
+    except:
+        pass
     with open('images/coctail_baner.jpg', 'rb') as photo:
         await bot.send_photo(call.message.chat.id, photo,
                              caption='Оберіть тип коктейлю 🍹',
@@ -194,7 +251,10 @@ async def open_cocktails_types(call: types.CallbackQuery):
 async def open_cocktails(call: types.CallbackQuery):
     data = call.data.split('_')
     type = data[2]
-    await call.message.delete()
+    try:
+        await call.message.delete()
+    except:
+        pass
     with open('images/coctail_baner.jpg', 'rb') as photo:
         await bot.send_photo(call.message.chat.id, photo,
                              caption='Оберіть коктейль 🍹',
@@ -202,7 +262,10 @@ async def open_cocktails(call: types.CallbackQuery):
 
 
 async def open_alcohol_type(call: types.CallbackQuery):
-    await call.message.delete()
+    try:
+        await call.message.delete()
+    except:
+        pass
     with open('images/alcohol_baner.jpg', 'rb') as photo:
         await bot.send_photo(call.message.chat.id, photo,
                              caption='Оберіть тип алкоголю 🍷',
@@ -212,7 +275,10 @@ async def open_alcohol_type(call: types.CallbackQuery):
 async def open_alcohol(call: types.CallbackQuery):
     data = call.data.split('_')
     type = data[2]
-    await call.message.delete()
+    try:
+        await call.message.delete()
+    except:
+        pass
     with open('images/alcohol_baner.jpg', 'rb') as photo:
         await bot.send_photo(call.message.chat.id, photo,
                              caption='Оберіть алкоголь 🍷',
@@ -224,7 +290,10 @@ async def open_alcohol(call: types.CallbackQuery):
 
 
 async def info_about_dish(call: types.CallbackQuery):
-    await call.message.delete()
+    try:
+        await call.message.delete()
+    except:
+        pass
     data = call.data.split('_')
     dish_type = data[2]
     dish_id = data[3]
@@ -261,7 +330,10 @@ async def add_to_basket(call: types.CallbackQuery):
     await bot.answer_callback_query(call.id, 'Додано у вибране ⭐️', show_alert=True)
 
 async def open_basket(call: types.CallbackQuery):
-    await call.message.delete()
+    try:
+        await call.message.delete()
+    except:
+        pass
     basket=await postgres_db.get_basket(call.from_user.id)
     total_amount=0
     if basket==None:
@@ -284,7 +356,10 @@ async def open_basket(call: types.CallbackQuery):
         await bot.send_message(call.message.chat.id, message, reply_markup=await kb.ikb_client_basket(dict_basket))
 
 async def clear_basket(call: types.CallbackQuery):
-    await call.message.delete()
+    try:
+        await call.message.delete()
+    except:
+        pass
     await postgres_db.clear_basket(call.from_user.id)
     await bot.send_message(call.message.chat.id, 'Ви ще нічого не додали', reply_markup=kb.ikb_client_basket1())
 async def drop_from_basket(call: types.CallbackQuery):
