@@ -268,9 +268,9 @@ async def ikb_client_calian() -> InlineKeyboardMarkup:
     hard = InlineKeyboardButton(text='Hard(важкий)', callback_data='f')
     tangiers = InlineKeyboardButton(text='Tangiers(танжер)', callback_data='f')
     back = InlineKeyboardButton(text='🔙 Назад', callback_data='main_menu')
-    light_price = InlineKeyboardButton(text='180 грн', callback_data='f')
-    medium_price = InlineKeyboardButton(text='200 грн', callback_data='f')
-    hard_price = InlineKeyboardButton(text='250 грн', callback_data='f')
+    light_price = InlineKeyboardButton(text='200 грн', callback_data='f')
+    medium_price = InlineKeyboardButton(text='220 грн', callback_data='f')
+    hard_price = InlineKeyboardButton(text='280 грн', callback_data='f')
     tangiers_price = InlineKeyboardButton(text='350 грн', callback_data='f')
     ikb_client_calian.add(light, light_price, medium, medium_price, hard, hard_price, tangiers, tangiers_price, back)
     return ikb_client_calian
