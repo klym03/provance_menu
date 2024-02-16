@@ -16,8 +16,9 @@ def ikb_client_main_menu() -> InlineKeyboardMarkup:
     wifi = InlineKeyboardButton(text='📟 Wi-Fi', callback_data='wifi')
     loct = InlineKeyboardButton(text='📍 Локація', callback_data='location')
     cont = InlineKeyboardButton(text='📞 Контакти', callback_data='contacts')
+    feetback = InlineKeyboardButton(text='📝 Залишити відгук', url='https://www.google.com/maps/place/%D0%9F%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D1%81/@49.4113568,24.6083968,17z/data=!4m18!1m9!3m8!1s0x47307f280f7757a5:0x9c59f982eb64e4d1!2z0J_RgNC-0LLQsNC90YE!8m2!3d49.4113568!4d24.6109717!9m1!1b1!16s%2Fg%2F11pxnjzdz2!3m7!1s0x47307f280f7757a5:0x9c59f982eb64e4d1!8m2!3d49.4113568!4d24.6109717!9m1!1b1!16s%2Fg%2F11pxnjzdz2?entry=ttu')
     basket = InlineKeyboardButton(text='Вибране ⭐️', callback_data='basket')
-    ikb_client_main_menu.add(menu, bar,basket,kal, wifi, loct, cont)
+    ikb_client_main_menu.add(menu, bar,basket,kal, wifi, loct, cont, feetback)
     return ikb_client_main_menu
 
 def ikb_client_basket(dish_list,price) -> InlineKeyboardMarkup:
