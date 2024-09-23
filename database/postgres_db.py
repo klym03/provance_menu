@@ -137,13 +137,7 @@ async def get_alcohol_types() -> list:
     return type_list
 
 
-async def get_info_about_dish(dish_type, dish_id: int):
-    async with pool.acquire() as connection:
-        async with connection.transaction():
-            return await connection.fetchrow(f"SELECT * FROM {dish_type} WHERE id={dish_id}, ")
-
-
-async def get_info_about_dish(dish_type, dish_id: int):
+async def get_info_about_dish(dish_type, dish_id):
     async with pool.acquire() as connection:
         async with connection.transaction():
             return await connection.fetchrow(f"SELECT * FROM {dish_type} WHERE id={dish_id}")
@@ -210,6 +204,7 @@ async def add_to_basket(user_id: int, basket: dict):
             "UPDATE users SET basket = $1 WHERE user_id = $2",
             json.dumps(current_basket), user_id
     )
+
 
 # async def clear_basket(user_id: int):
 #     c_basket=[]

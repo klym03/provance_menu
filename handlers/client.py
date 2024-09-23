@@ -1,10 +1,12 @@
 from aiogram import types, Dispatcher
+from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters import Text
+from aiogram.dispatcher.filters.state import StatesGroup , State
 from aiogram.types import message
 import json
 import utils
 from database import postgres_db
-from create_bot import bot
+from create_bot import bot,order_chat_id
 import keyboards.client_kb as kb
 
 async def start_command(message: types.Message):
@@ -19,7 +21,9 @@ async def start_menu(message: types.Message):
             await postgres_db.add_user(user_id)
         with open('images/mainBanner.jpg', 'rb') as photo:
             await bot.send_photo(message.chat.id, photo,
-                                 caption='Вітаємо! 👋🏽\nЦе помічник нашого закладу 👩🏽‍🍳\n\nБажаєте переглянути меню нашого закладу та актуальну інформацію? Тоді тисніть на одну з кнопок 👇🏽',
+                                 caption='Вітаємо! 👋🏽\nЦе помічник нашого закладу 👩🏽‍🍳'
+                                         '\n\nБажаєте переглянути меню нашого закладу та актуальну інформацію?'
+                                         ' Тоді тисніть на одну з кнопок 👇🏽',
                                  reply_markup=kb.ikb_client_main_menu())
 
 
@@ -28,7 +32,8 @@ async def main_menu(call: types.CallbackQuery):
     await bot.delete_message(call.message.chat.id, call.message.message_id)
     with open('images/mainBanner.jpg', 'rb') as photo:
         await bot.send_photo(message.chat.id, photo,
-                             caption='Вітаємо! 👋🏽\nЦе помічник нашого закладу 👩🏽‍🍳\n\nБажаєте переглянути меню нашого закладу та актуальну інформацію? Тоді тисніть на одну з кнопок 👇🏽',
+                             caption='Вітаємо! 👋🏽\nЦе помічник нашого закладу 👩🏽‍🍳'
+                                     '\n\nБажаєте переглянути меню нашого закладу та актуальну інформацію? Тоді тисніть на одну з кнопок 👇🏽',
                              reply_markup=kb.ikb_client_main_menu())
 
 
@@ -47,7 +52,8 @@ async def wifi_command(call: types.CallbackQuery):
         pass
     with open('images/wifi_baner.jpg', 'rb') as photo:
         await bot.send_photo(call.message.chat.id, photo,
-                             caption='📟 Назва мережі: <b>WIFI</b> \n🔑 Пароль: <code>10651124</code>',
+                             caption='📟 Назва мережі: <b>WIFI</b> \n🔑'
+                                     ' Пароль: <code>10651124</code>',
                              reply_markup=kb.ikb_client_back_to_main_menu())
 
 
@@ -327,7 +333,7 @@ async def add_to_basket(call: types.CallbackQuery):
     basket_dict={}
     basket_dict[f"{type}_{dish_id}"]=int(number)
     await postgres_db.add_to_basket(call.from_user.id,basket_dict)
-    await bot.answer_callback_query(call.id, 'Додано у вибране ⭐️', show_alert=True)
+    await bot.answer_callback_query(call.id, 'Додано у кошик 🛒️', show_alert=True)
 
 async def open_basket(call: types.CallbackQuery):
     try:

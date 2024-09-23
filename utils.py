@@ -1,4 +1,5 @@
 dict_types = {
+    'sandwich': 'Сендвічі',
     'Phila': 'Філадельфія',
     'Californ': 'Каліфорнія',
     'Futumack': 'Футомакі',

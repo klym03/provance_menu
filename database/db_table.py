@@ -121,6 +121,15 @@ async def start_db() -> None:
                 price INTEGER NOT NULL
                 )
             """)
+        await pool.execute("""
+                CREATE TABLE IF NOT EXISTS orders(
+                id SERIAL PRIMARY KEY,
+                user_id BIGINT NOT NULL,
+                basket JSONB NOT NULL,
+                details JSONB NOT NULL
+                )
+                """)
+
         p = await pool.fetch("""SELECT * FROM menu_sushi""")
         if len(p) == 0:
             for sushi in utils_db.menu_sushi:
