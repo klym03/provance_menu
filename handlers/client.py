@@ -6,7 +6,7 @@ from aiogram.types import message
 import json
 import utils
 from database import postgres_db
-from create_bot import bot,order_chat_id
+from create_bot import bot
 import keyboards.client_kb as kb
 
 async def start_command(message: types.Message):
