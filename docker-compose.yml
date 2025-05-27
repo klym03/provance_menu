@@ -1,28 +1,55 @@
-version: '3.3'
+version: '3.8' # Рекомендую оновити версію для підтримки 'start_period' у healthcheck (або 3.4+)
+
 services:
   db:
     image: postgres:14
-    restart: on-failure
+    restart: always # Змінено з on-failure на always для більшої надійності
     env_file:
-      - ./.env
+      - ./.env # Завантажує POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_DB з .env
     ports:
-      - 5436:5432
+      - "5436:5432" # Зовнішній порт 5436, внутрішній 5432
     networks:
       - somenet
+    volumes:
+      - postgres_data:/var/lib/postgresql/data # Додано для збереження даних БД
+    healthcheck:
+      # Команда для перевірки, чи PostgreSQL готовий приймати з'єднання
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB} -h localhost"]
+      interval: 10s     # Перевіряти кожні 10 секунд
+      timeout: 5s       # Час очікування відповіді на перевірку
+      retries: 5        # Кількість спроб перед тим, як вважати сервіс нездоровим
+      start_period: 30s # (Потрібна версія compose 3.4+) Дає час на початкову ініціалізацію БД
+                        # Якщо у вас версія < 3.4, закоментуйте або видаліть цей рядок,
+                        # але тоді, можливо, доведеться збільшити 'retries' або 'interval'.
+
   bot:
-    image: python-bot
-    build: .
+    image: python-bot # Використовується, якщо образ вже зібраний
+    build: .          # Або збирається з Dockerfile у поточній директорії
     command: sh -c "python3 -m main"
     env_file:
-      - ./.env
+      - ./.env # Завантажує TELEGRAM_BOT_TOKEN та інші змінні для бота
+    environment:
+      # Явно передаємо параметри для підключення до БД,
+      # використовуючи ім'я сервісу 'db' як хост.
+      # Значення ${POSTGRES_DB}, ${POSTGRES_USER}, ${POSTGRES_PASSWORD}
+      # будуть взяті з файлу .env
+      - DB_HOST=db
+      - DB_NAME=${POSTGRES_DB}
+      - DB_USER=${POSTGRES_USER}
+      - DB_PASSWORD=${POSTGRES_PASSWORD}
+      # - DB_PORT=5432 # Якщо порт відрізняється від стандартного (не потрібно тут, бо це внутрішній порт)
     restart: always
     depends_on:
-      - db
+      db: # Бот залежить від сервісу 'db'
+        condition: service_healthy # Бот запуститься тільки тоді, коли 'db' стане "здоровим"
     ports:
-      - 5500:5000
+      - "5500:5000" # Може бути для вебхуків або іншого HTTP-інтерфейсу бота
     networks:
       - somenet
 
 networks:
   somenet:
     driver: bridge
+
+volumes:
+  postgres_data: {} # Оголошення іменованого тому для збереження даних PostgreSQL
